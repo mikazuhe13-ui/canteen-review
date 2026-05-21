@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "窗口详情",
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

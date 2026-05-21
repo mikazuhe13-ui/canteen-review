@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "干饭红黑榜",
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

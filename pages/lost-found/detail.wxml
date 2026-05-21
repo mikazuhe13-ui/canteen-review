@@ -1,0 +1,85 @@
+<view class="container">
+  <!-- 图片轮播 -->
+  <swiper class="image-swiper" wx:if="{{item.images.length > 0}}" indicator-dots autoplay circular>
+    <swiper-item wx:for="{{item.images}}" wx:key="*this">
+      <image class="swiper-img" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-src="{{item}}" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 状态标签 -->
+  <view class="status-banner {{item.status}}">
+    <text>{{item.status === 'open' ? (item.type === 'lost' ? '🔍 寻找中' : '✋ 待认领') : '✅ 已解决'}}</text>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="card">
+    <view class="title-row">
+      <view class="type-badge {{item.type}}">{{item.type === 'lost' ? '寻物' : '拾物'}}</view>
+      <text class="item-title">{{item.title}}</text>
+    </view>
+    <text class="item-desc">{{item.description}}</text>
+
+    <view class="info-list">
+      <view class="info-row">
+        <text class="info-label">分类</text>
+        <text class="info-value">{{categoryName}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">{{item.type === 'lost' ? '丢失地点' : '拾获地点'}}</text>
+        <text class="info-value">📍 {{item.location || '未填写'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">发布时间</text>
+        <text class="info-value">{{item.timeLabel}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">浏览次数</text>
+        <text class="info-value">{{item.viewCount}} 次</text>
+      </view>
+    </view>
+
+    <!-- 标签 -->
+    <view class="tag-list" wx:if="{{item.tags.length > 0}}">
+      <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 发布者信息 -->
+  <view class="card">
+    <view class="publisher-row">
+      <image class="publisher-avatar" src="{{item.avatar || '/images/avatar.png'}}" mode="aspectFill" />
+      <text class="publisher-name">{{item.nickname || '匿名用户'}}</text>
+    </view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="card contact-card" wx:if="{{item.contact}}">
+    <text class="contact-title">联系方式</text>
+    <text class="contact-value">{{item.contact}}</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-bar" wx:if="{{isOwner}}">
+    <button class="action-btn resolve-btn" wx:if="{{item.status === 'open'}}" bindtap="markResolved">
+      标记为已解决
+    </button>
+    <button class="action-btn reopen-btn" wx:if="{{item.status === 'resolved'}}" bindtap="markOpen">
+      重新开放
+    </button>
+  </view>
+
+  <!-- AI 匹配推荐 -->
+  <view class="card" wx:if="{{matches.length > 0}}">
+    <text class="card-title">可能相关</text>
+    <view class="match-list">
+      <view class="match-item" wx:for="{{matches}}" wx:key="id" bindtap="goMatchDetail" data-id="{{item.id}}">
+        <view class="match-type-badge {{item.type}}">{{item.type === 'lost' ? '寻物' : '拾物'}}</view>
+        <view class="match-body">
+          <text class="match-title">{{item.title}}</text>
+          <text class="match-meta">{{item.location}} · {{item.timeLabel}}</text>
+        </view>
+        <text class="match-score" wx:if="{{item.matchScore > 0}}">匹配</text>
+      </view>
+    </view>
+  </view>
+</view>

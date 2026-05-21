@@ -1,0 +1,89 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">🍽️</text>
+        <text class="badge-text">窗口列表</text>
+      </view>
+      <text class="hero-title">{{canteenName}}</text>
+      <text class="hero-sub">选择楼层和窗口进行评价</text>
+    </view>
+  </view>
+
+  <!-- 楼层切换 -->
+  <view class="floor-tabs">
+    <view
+      class="floor-tab {{currentFloor === index ? 'active' : ''}}"
+      wx:for="{{floors}}"
+      wx:key="index"
+      bindtap="switchFloor"
+      data-index="{{index}}"
+    >
+      <text class="floor-tab-icon">🏢</text>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 窗口列表 -->
+  <skeleton loading="{{loading}}" type="card" rows="{{3}}">
+  <view class="window-list">
+    <view
+      class="window-card"
+      wx:for="{{currentWindows}}"
+      wx:key="id"
+      bindtap="goToFeedback"
+      data-id="{{item.id}}"
+      data-name="{{item.name}}"
+    >
+      <view class="window-img-wrapper">
+        <image class="window-img" src="{{item.image}}" mode="aspectFill" />
+        <view class="window-img-overlay"></view>
+      </view>
+      <view class="window-info">
+        <text class="window-name">{{item.name}}</text>
+        <view class="window-location-row">
+          <text class="location-icon">📍</text>
+          <text class="window-location">{{item.location}}</text>
+        </view>
+        <!-- 味觉标签云 -->
+        <view class="tag-cloud" wx:if="{{item.tags.length > 0}}">
+          <text class="taste-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="window-rating">
+          <view class="rating-badge">
+            <text class="rating-score">{{item.totalScore}}</text>
+            <text class="rating-star">★</text>
+          </view>
+          <text class="rating-count">({{item.reviewCount}}条评价)</text>
+        </view>
+        <!-- 多维评分条 -->
+        <view class="dim-bars" wx:if="{{item.avgScores.taste > 0}}">
+          <view class="dim-bar">
+            <text class="bar-label">口味</text>
+            <view class="bar-track"><view class="bar-fill" style="width: {{item.avgScores.taste * 20}}%"></view></view>
+          </view>
+          <view class="dim-bar">
+            <text class="bar-label">性价比</text>
+            <view class="bar-track"><view class="bar-fill" style="width: {{item.avgScores.value * 20}}%"></view></view>
+          </view>
+        </view>
+      </view>
+      <view class="window-arrow">
+        <view class="arrow-circle">
+          <text class="arrow-icon">→</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{currentWindows.length === 0}}">
+      <view class="empty-icon-wrapper">
+        <text class="empty-icon-emoji">🍽️</text>
+      </view>
+      <text class="empty-text-main">暂无窗口信息</text>
+      <text class="empty-text-sub">请稍后再来查看</text>
+    </view>
+  </view>
+  </skeleton>
+</view>

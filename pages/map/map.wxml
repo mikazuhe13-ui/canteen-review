@@ -1,0 +1,92 @@
+<view class="container">
+  <!-- 装饰性渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-decoration">
+      <view class="deco-circle deco-1"></view>
+      <view class="deco-circle deco-2"></view>
+      <view class="deco-star deco-3">🗺️</view>
+      <view class="deco-star deco-4">📍</view>
+    </view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">🗺️</text>
+        <text class="badge-text">空间导览</text>
+      </view>
+      <text class="hero-title">食堂地图</text>
+      <text class="hero-sub">点击窗口查看详情</text>
+    </view>
+  </view>
+
+  <!-- 食堂切换 -->
+  <view class="canteen-tabs">
+    <view class="canteen-tab {{currentCanteen === item.id ? 'active' : ''}}" wx:for="{{canteens}}" wx:key="id" bindtap="switchCanteen" data-id="{{item.id}}">
+      <text class="tab-emoji">🏫</text>
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 平面图 -->
+  <view class="floor-map">
+    <view class="floor-map-header">
+      <view class="floor-map-icon-bg">
+        <text class="floor-map-icon">🏢</text>
+      </view>
+      <text class="floor-title">{{currentCanteenName}} · {{currentFloor}}楼</text>
+    </view>
+
+    <!-- 楼层选择 -->
+    <view class="floor-selector">
+      <view class="floor-btn {{currentFloor === item ? 'active' : ''}}" wx:for="{{floorList}}" wx:key="*this" bindtap="switchFloor" data-floor="{{item}}">
+        <text>{{item}}F</text>
+      </view>
+    </view>
+
+    <!-- 平面图 -->
+    <view class="floor-plan">
+      <view class="entrance">
+        <text class="entrance-icon">🚪</text>
+        <text>入口</text>
+      </view>
+      <view class="corridor">
+        <text class="corridor-icon">〰️</text>
+        <text>通道</text>
+      </view>
+      <view
+        class="window-block {{item.score >= 4 ? 'hot' : item.score >= 3 ? 'normal' : 'cold'}}"
+        style="left: {{item.pos.left}}; top: {{item.pos.top}};"
+        wx:for="{{mapWindows}}"
+        wx:key="id"
+        bindtap="goToFeedback"
+        data-id="{{item.id}}"
+        data-name="{{item.name}}"
+      >
+        <text class="block-name">{{item.name}}</text>
+        <view class="block-score-row">
+          <text class="block-score">{{item.score}}</text>
+          <text class="block-score-star">★</text>
+        </view>
+        <text class="block-count">{{item.reviewCount}}条</text>
+        <view class="block-tags" wx:if="{{item.tags.length > 0}}">
+          <text class="mini-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图例 -->
+  <view class="legend">
+    <view class="legend-item">
+      <view class="legend-dot hot"></view>
+      <text>热门 (4分以上)</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot normal"></view>
+      <text>一般 (3-4分)</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-dot cold"></view>
+      <text>待提升 (3分以下)</text>
+    </view>
+  </view>
+</view>

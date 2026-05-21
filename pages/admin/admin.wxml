@@ -1,0 +1,175 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">🔧</text>
+        <text class="badge-text">管理员</text>
+      </view>
+      <text class="hero-title">管理后台</text>
+      <text class="hero-sub">数据看板 · AI分析</text>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-row">
+    <view class="stat-card">
+      <view class="stat-icon-circle stat-circle-1">
+        <text class="stat-emoji">📝</text>
+      </view>
+      <text class="stat-num">{{totalCount}}</text>
+      <text class="stat-label">总评价</text>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon-circle stat-circle-2">
+        <text class="stat-emoji">⭐</text>
+      </view>
+      <text class="stat-num">{{avgScore}}</text>
+      <text class="stat-label">平均分</text>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon-circle stat-circle-3">
+        <text class="stat-emoji">🔥</text>
+      </view>
+      <text class="stat-num">{{todayCount}}</text>
+      <text class="stat-label">今日新增</text>
+    </view>
+  </view>
+
+  <!-- 7日趋势 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-trend">
+        <text class="card-icon-emoji">📈</text>
+      </view>
+      <text class="card-title">7日趋势</text>
+    </view>
+    <view class="trend-chart">
+      <view class="trend-bar-wrapper" wx:for="{{trend}}" wx:key="label">
+        <view class="trend-bar" style="height: {{item.count * 30 + 10}}rpx">
+          <text class="trend-count">{{item.count}}</text>
+        </view>
+        <text class="trend-label">{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 多维平均分 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-dim">
+        <text class="card-icon-emoji">📊</text>
+      </view>
+      <text class="card-title">各维度平均分</text>
+    </view>
+    <view class="dim-avg-list">
+      <view class="dim-avg-item" wx:for="{{dimAvgs}}" wx:key="key">
+        <text class="dim-avg-name">{{item.name}}</text>
+        <view class="dim-avg-bar">
+          <view class="dim-avg-fill" style="width: {{item.score * 20}}%"></view>
+        </view>
+        <text class="dim-avg-score">{{item.score}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门标签云 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-tag">
+        <text class="card-icon-emoji">🏷️</text>
+      </view>
+      <text class="card-title">热门味觉标签</text>
+    </view>
+    <view class="tag-cloud">
+      <view class="tag-item" wx:for="{{topTags}}" wx:key="name">
+        <text class="tag-text">{{item.name}}</text>
+        <text class="tag-count">×{{item.count}}</text>
+      </view>
+    </view>
+    <view class="empty-tip" wx:if="{{topTags.length === 0}}">
+      <text class="empty-text">暂无标签数据</text>
+    </view>
+  </view>
+
+  <!-- 窗口排行 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-rank">
+        <text class="card-icon-emoji">🏆</text>
+      </view>
+      <text class="card-title">窗口评分排行</text>
+    </view>
+    <view class="window-rank-list">
+      <view class="window-rank-item" wx:for="{{windowRankings}}" wx:key="id">
+        <view class="rank-idx {{index < 3 ? 'top' : ''}}">{{index + 1}}</view>
+        <text class="rank-name">{{item.name}}</text>
+        <view class="rank-score-badge">
+          <text class="rank-score">{{item.avgScore}}</text>
+          <text class="rank-score-star">★</text>
+        </view>
+        <text class="rank-count">{{item.reviewCount}}条</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评价列表 -->
+  <skeleton loading="{{loading}}" type="list" rows="{{4}}">
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-review">
+        <text class="card-icon-emoji">💬</text>
+      </view>
+      <text class="card-title">最新评价</text>
+    </view>
+    <view class="mod-filter">
+      <view class="mod-tab {{moderationFilter === 'all' ? 'active' : ''}}" bindtap="onModerationFilter" data-filter="all">
+        <text>全部</text>
+      </view>
+      <view class="mod-tab {{moderationFilter === 'pending' ? 'active' : ''}}" bindtap="onModerationFilter" data-filter="pending">
+        <text>待审核</text>
+      </view>
+    </view>
+    <view class="review-list">
+      <view class="review-card" wx:for="{{reviews}}" wx:key="id" wx:if="{{moderationFilter === 'all' || item.status === 'pending'}}">
+        <view class="review-header">
+          <text class="review-window">{{item.windowName}}</text>
+          <view class="review-stars">
+            <text wx:for="{{[1,2,3,4,5]}}" wx:for-item="s" wx:key="*this" class="star {{s <= item.score ? 'active' : ''}}">★</text>
+          </view>
+        </view>
+        <text class="review-text">{{item.text}}</text>
+        <view class="rewritten-section" wx:if="{{item.rewrittenText && item.rewrittenText !== item.text}}">
+          <text class="rewritten-label">✨ AI优化:</text>
+          <text class="rewritten-content">{{item.rewrittenText}}</text>
+        </view>
+        <view class="review-tags" wx:if="{{item.aiTags && item.aiTags.length > 0}}">
+          <text class="mini-tag" wx:for="{{item.aiTags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="review-footer">
+          <text class="review-time">{{item.time || item.createTime}}</text>
+          <view class="review-actions" wx:if="{{item.status === 'pending'}}">
+            <view class="action-btn approve" catchtap="approveReview" data-id="{{item._id || item.id}}">
+              <text>✓ 通过</text>
+            </view>
+            <view class="action-btn reject" catchtap="rejectReview" data-id="{{item._id || item.id}}">
+              <text>✗ 拒绝</text>
+            </view>
+          </view>
+          <view class="status-badge {{item.status}}" wx:if="{{item.status !== 'pending'}}">
+            {{item.status === 'approved' ? '已通过' : '已拒绝'}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  </skeleton>
+
+  <view class="empty-tip" wx:if="{{reviews.length === 0}}">
+    <view class="empty-icon-wrapper">
+      <text class="empty-icon-emoji">📋</text>
+    </view>
+    <text class="empty-text-main">暂无评价数据</text>
+  </view>
+</view>

@@ -1,0 +1,106 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">📡</text>
+        <text class="badge-text">实时更新</text>
+      </view>
+      <text class="hero-title">干饭动态</text>
+      <text class="hero-sub">看看同学们都在吃什么</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-row">
+    <view class="filter-tab {{filter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-filter="all">
+      <text>全部</text>
+    </view>
+    <view class="filter-tab {{filter === 'hot' ? 'active' : ''}}" bindtap="switchFilter" data-filter="hot">
+      <text>🔥 热门</text>
+    </view>
+    <view class="filter-tab {{filter === 'new' ? 'active' : ''}}" bindtap="switchFilter" data-filter="new">
+      <text>🆕 最新</text>
+    </view>
+  </view>
+
+  <!-- 动态列表 -->
+  <skeleton loading="{{loading}}" type="card" rows="{{4}}">
+  <view class="feed-list">
+    <view
+      class="feed-card"
+      wx:for="{{activities}}"
+      wx:key="id"
+      wx:if="{{filter === 'all' || (filter === 'hot' && item.likeCount > 0) || (filter === 'new' && item.timeLabel.indexOf('分钟') !== -1 || item.timeLabel.indexOf('小时') !== -1)}}"
+    >
+      <!-- 用户信息 -->
+      <view class="feed-header">
+        <view class="feed-user-row">
+          <view class="feed-avatar">
+            <text class="feed-initial">{{item.userInitial || '匿'}}</text>
+          </view>
+          <view class="feed-user-info">
+            <text class="feed-nickname">{{item.nickname || '匿名同学'}}</text>
+            <text class="feed-time">{{item.timeLabel}}</text>
+          </view>
+        </view>
+        <view class="feed-score-pill">
+          <text class="feed-score-num">{{item.score}}</text>
+          <text class="feed-score-star">★</text>
+        </view>
+      </view>
+
+      <!-- 窗口名 -->
+      <view class="feed-window-row" bindtap="goToDetail" data-id="{{item.windowId}}">
+        <text class="feed-window-icon">🍽️</text>
+        <text class="feed-window-name">{{item.windowName}}</text>
+        <text class="feed-window-arrow">→</text>
+      </view>
+
+      <!-- 评价内容 -->
+      <view class="feed-content">
+        <view class="feed-bubble user-bubble">
+          <text class="feed-text">{{item.text}}</text>
+        </view>
+        <view class="feed-bubble ai-bubble" wx:if="{{item.hasRewrite}}">
+          <view class="ai-badge">
+            <text class="ai-badge-icon">✨</text>
+            <text class="ai-badge-text">AI优化</text>
+          </view>
+          <text class="feed-text ai-text">{{item.rewrittenText}}</text>
+        </view>
+      </view>
+
+      <!-- 标签 -->
+      <view class="feed-tags" wx:if="{{item.aiTags && item.aiTags.length > 0}}">
+        <text class="feed-tag" wx:for="{{item.aiTags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+      </view>
+
+      <!-- 底部操作 -->
+      <view class="feed-footer">
+        <view class="feed-action" bindtap="onLike" data-id="{{item.id}}">
+          <text class="action-icon {{item.likeCount > 0 ? 'liked' : ''}}">♥</text>
+          <text class="action-count">{{item.likeCount}}</text>
+        </view>
+        <view class="feed-action" bindtap="goToDetail" data-id="{{item.windowId}}">
+          <text class="action-icon">💬</text>
+          <text class="action-text">评论</text>
+        </view>
+        <view class="feed-action">
+          <text class="action-icon">↗️</text>
+          <text class="action-text">分享</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{activities.length === 0 && !loading}}">
+      <view class="empty-icon-wrapper">
+        <text class="empty-icon-emoji">📡</text>
+      </view>
+      <text class="empty-text-main">暂无动态</text>
+      <text class="empty-text-sub">同学们还没开始评价呢</text>
+    </view>
+  </view>
+  </skeleton>
+</view>

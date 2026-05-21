@@ -1,0 +1,80 @@
+<view class="skeleton" wx:if="{{loading}}">
+  <!-- 卡片骨架 -->
+  <block wx:if="{{type === 'card'}}">
+    <view class="skeleton-card" wx:for="{{skeletonRows}}" wx:key="*this">
+      <view class="skeleton-header">
+        <view class="skeleton-avatar skeleton-shine"></view>
+        <view class="skeleton-lines">
+          <view class="skeleton-line skeleton-shine" style="width: 60%"></view>
+          <view class="skeleton-line short skeleton-shine" style="width: 40%"></view>
+        </view>
+      </view>
+      <view class="skeleton-content">
+        <view class="skeleton-line skeleton-shine" style="width: 100%"></view>
+        <view class="skeleton-line skeleton-shine" style="width: 90%"></view>
+        <view class="skeleton-line skeleton-shine" style="width: 75%"></view>
+      </view>
+      <view class="skeleton-footer">
+        <view class="skeleton-tag skeleton-shine"></view>
+        <view class="skeleton-tag skeleton-shine"></view>
+        <view class="skeleton-tag skeleton-shine"></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 列表骨架 -->
+  <block wx:if="{{type === 'list'}}">
+    <view class="skeleton-list-item" wx:for="{{skeletonRows}}" wx:key="*this">
+      <view class="skeleton-list-icon skeleton-shine"></view>
+      <view class="skeleton-list-content">
+        <view class="skeleton-line skeleton-shine" style="width: 70%"></view>
+        <view class="skeleton-line short skeleton-shine" style="width: 50%"></view>
+      </view>
+      <view class="skeleton-list-arrow skeleton-shine"></view>
+    </view>
+  </block>
+
+  <!-- 个人中心骨架 -->
+  <block wx:if="{{type === 'profile'}}">
+    <view class="skeleton-profile">
+      <view class="skeleton-profile-avatar skeleton-shine"></view>
+      <view class="skeleton-line skeleton-shine" style="width: 40%; margin: 20rpx auto 0"></view>
+      <view class="skeleton-line short skeleton-shine" style="width: 30%; margin: 10rpx auto 0"></view>
+    </view>
+    <view class="skeleton-stats">
+      <view class="skeleton-stat-item" wx:for="{{[1,2,3]}}" wx:key="*this">
+        <view class="skeleton-stat-icon skeleton-shine"></view>
+        <view class="skeleton-line short skeleton-shine" style="width: 60%; margin: 12rpx auto 0"></view>
+      </view>
+    </view>
+    <view class="skeleton-card" wx:for="{{[1,2]}}" wx:key="*this">
+      <view class="skeleton-header">
+        <view class="skeleton-line skeleton-shine" style="width: 40%"></view>
+      </view>
+      <view class="skeleton-content">
+        <view class="skeleton-line skeleton-shine" style="width: 100%"></view>
+        <view class="skeleton-line skeleton-shine" style="width: 80%"></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 排行榜骨架 -->
+  <block wx:if="{{type === 'ranking'}}">
+    <view class="skeleton-podium">
+      <view class="skeleton-podium-item" wx:for="{{[1,2,3]}}" wx:key="*this">
+        <view class="skeleton-podium-avatar skeleton-shine"></view>
+        <view class="skeleton-line short skeleton-shine" style="width: 80%; margin: 12rpx auto 0"></view>
+        <view class="skeleton-podium-bar skeleton-shine"></view>
+      </view>
+    </view>
+    <view class="skeleton-list-item" wx:for="{{skeletonRows}}" wx:key="*this">
+      <view class="skeleton-rank-num skeleton-shine"></view>
+      <view class="skeleton-list-content">
+        <view class="skeleton-line skeleton-shine" style="width: 60%"></view>
+        <view class="skeleton-line short skeleton-shine" style="width: 40%"></view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<slot wx:else></slot>

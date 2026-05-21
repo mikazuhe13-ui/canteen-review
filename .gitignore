@@ -1,0 +1,32 @@
+# WeChat DevTools private config
+project.private.config.json
+
+# Dependencies
+node_modules/
+miniprogram_npm/
+cloudfunctions/**/node_modules/
+
+# Build and temporary output
+dist/
+build/
+tmp/
+temp/
+*.tmp
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local environment and secrets
+.env
+.env.*
+*.local
+*.key
+*.pem
+
+# Test and cache output
+coverage/
+.cache/

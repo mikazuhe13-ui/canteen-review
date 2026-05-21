@@ -1,0 +1,240 @@
+<view class="container">
+  <!-- 广告轮播（最顶部） -->
+  <view class="banner-section">
+    <swiper
+      class="banner-swiper"
+      autoplay
+      circular
+      interval="3500"
+      duration="500"
+      indicator-dots
+      indicator-color="rgba(255,255,255,0.5)"
+      indicator-active-color="#FFF8E1"
+    >
+      <swiper-item wx:for="{{banners}}" wx:key="id">
+        <view class="banner-item" bindtap="onBannerTap" data-id="{{item.id}}">
+          <image class="banner-img" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="banner-tag" wx:if="{{item.tag}}">{{item.tag}}</view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <!-- 搜索栏覆盖广告底部 -->
+    <view class="search-bar" bindtap="goSearch">
+      <text class="search-icon">🔍</text>
+      <text class="search-placeholder">搜索窗口、菜品</text>
+    </view>
+  </view>
+
+  <!-- 装饰性渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-greeting">
+        <text class="greeting-emoji">👋</text>
+        <text class="greeting-text">{{greeting}}</text>
+      </view>
+      <text class="hero-title">校园美食广场</text>
+      <text class="hero-sub">发现你最爱的食堂窗口</text>
+      <view class="hero-stats">
+        <view class="hero-stat">
+          <view class="stat-icon-bg">
+            <text class="stat-emoji">🏫</text>
+          </view>
+          <text class="hero-stat-num">{{canteens.length}}</text>
+          <text class="hero-stat-label">食堂</text>
+        </view>
+        <view class="hero-stat-divider"></view>
+        <view class="hero-stat">
+          <view class="stat-icon-bg">
+            <text class="stat-emoji">🍽️</text>
+          </view>
+          <text class="hero-stat-num">{{totalWindows}}</text>
+          <text class="hero-stat-label">窗口</text>
+        </view>
+        <view class="hero-stat-divider"></view>
+        <view class="hero-stat">
+          <view class="stat-icon-bg">
+            <text class="stat-emoji">💬</text>
+          </view>
+          <text class="hero-stat-num">{{totalReviews}}</text>
+          <text class="hero-stat-label">评价</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="quick-actions">
+    <view class="quick-item" bindtap="goToWindows" data-id="1">
+      <view class="quick-icon quick-icon-1">
+        <text>🍜</text>
+      </view>
+      <text class="quick-label">热门窗口</text>
+    </view>
+    <navigator url="/pages/ranking/ranking" class="quick-item">
+      <view class="quick-icon quick-icon-2">
+        <text>🏆</text>
+      </view>
+      <text class="quick-label">本周榜单</text>
+    </navigator>
+    <navigator url="/pages/profile/profile" class="quick-item">
+      <view class="quick-icon quick-icon-3">
+        <text>👤</text>
+      </view>
+      <text class="quick-label">我的主页</text>
+    </navigator>
+    <navigator url="/pages/feedback/feedback" class="quick-item">
+      <view class="quick-icon quick-icon-4">
+        <text>✍️</text>
+      </view>
+      <text class="quick-label">写评价</text>
+    </navigator>
+    <navigator url="/pages/lost-found/lost-found" class="quick-item">
+      <view class="quick-icon quick-icon-5">
+        <text>🔍</text>
+      </view>
+      <text class="quick-label">失物招领</text>
+    </navigator>
+  </view>
+
+  <!-- 菜品分类 -->
+  <view class="section-header">
+    <text class="section-title">菜品分类</text>
+    <text class="section-count">8大类</text>
+  </view>
+  <view class="category-grid">
+    <view
+      class="category-item"
+      wx:for="{{dishCategories}}"
+      wx:key="id"
+      bindtap="goCategory"
+      data-id="{{item.id}}"
+    >
+      <view class="category-icon">
+        <image class="category-img" src="{{item.image}}" mode="aspectFill" />
+      </view>
+      <text class="category-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 干饭推荐榜 TOP轮播 -->
+  <view class="section-header">
+    <view class="section-title-row">
+      <text class="section-title">干饭推荐榜</text>
+      <view class="fire-badge">
+        <text class="fire-icon">🔥</text>
+        <text class="fire-text">热</text>
+      </view>
+    </view>
+  </view>
+  <swiper
+    class="top-swiper"
+    autoplay
+    circular
+    interval="4000"
+    duration="600"
+    bindchange="onSwiperChange"
+    previous-margin="30rpx"
+    next-margin="30rpx"
+  >
+    <swiper-item wx:for="{{topWindows}}" wx:key="id">
+      <view class="top-card" bindtap="goWindowDetail" data-id="{{item.id}}">
+        <view class="top-card-bg"></view>
+        <view class="top-card-content">
+          <view class="top-badge-row">
+            <view class="top-rank-badge rank-{{index}}">
+              <text class="rank-emoji">{{index === 0 ? '👑' : index === 1 ? '🥈' : '🥉'}}</text>
+              <text class="rank-text">{{index === 0 ? 'TOP1' : index === 1 ? 'TOP2' : 'TOP3'}}</text>
+            </view>
+            <view class="top-score-pill">
+              <text class="top-score-num">{{item.totalScore}}</text>
+              <text class="top-score-star">★</text>
+            </view>
+          </view>
+          <text class="top-card-name">{{item.name}}</text>
+          <text class="top-card-location">📍 {{item.location}}</text>
+          <view class="ai-recommend">
+            <text class="ai-recommend-icon">✨</text>
+            <text class="ai-recommend-text">{{recommendTexts[index] || '全校同学都在推荐的宝藏窗口'}}</text>
+          </view>
+          <view class="top-card-tags" wx:if="{{item.tags.length > 0}}">
+            <text class="top-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 干饭行动派 -->
+  <view class="action-section">
+    <view class="action-card action-photo" bindtap="goToFeedback">
+      <view class="action-icon-wrapper">
+        <text class="action-icon">📸</text>
+      </view>
+      <view class="action-info">
+        <text class="action-title">拍照评菜</text>
+        <text class="action-desc">AI识菜，智能推荐窗口</text>
+      </view>
+      <text class="action-arrow">→</text>
+    </view>
+    <view class="action-card action-ai" bindtap="goToFeedback">
+      <view class="action-icon-wrapper">
+        <text class="action-icon">✍️</text>
+      </view>
+      <view class="action-info">
+        <text class="action-title">AI帮我写</text>
+        <text class="action-desc">一键生成走心评价</text>
+      </view>
+      <text class="action-arrow">→</text>
+    </view>
+  </view>
+
+  <!-- 食堂列表 -->
+  <view class="section-header">
+    <text class="section-title">全部食堂</text>
+    <text class="section-count">{{canteens.length}}家</text>
+  </view>
+  <skeleton loading="{{loading}}" type="list" rows="{{3}}">
+  <view class="canteen-list">
+    <view
+      class="canteen-card"
+      wx:for="{{canteens}}"
+      wx:key="id"
+      bindtap="goToWindows"
+      data-id="{{item.id}}"
+    >
+      <view class="canteen-icon canteen-icon-{{index % 3}}">
+        <text class="icon-text">{{item.name[0]}}</text>
+      </view>
+      <view class="canteen-info">
+        <view class="canteen-name-row">
+          <text class="canteen-name">{{item.name}}</text>
+          <view class="canteen-badge">推荐</view>
+        </view>
+        <text class="canteen-desc">{{item.desc}}</text>
+        <view class="canteen-meta">
+          <view class="meta-item">
+            <text class="meta-icon">🏢</text>
+            <text class="meta-text">{{item.floors}}层</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">🍳</text>
+            <text class="meta-text">{{item.windowCount || 0}}个窗口</text>
+          </view>
+        </view>
+        <view class="canteen-progress">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.windowCount * 20}}%"></view>
+          </view>
+          <text class="progress-text">窗口丰富度</text>
+        </view>
+      </view>
+      <view class="canteen-arrow">
+        <view class="arrow-circle">
+          <text class="arrow-icon">→</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  </skeleton>
+</view>

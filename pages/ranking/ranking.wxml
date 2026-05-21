@@ -1,0 +1,134 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">🏆</text>
+        <text class="badge-text">每周更新</text>
+      </view>
+      <text class="hero-title">干饭红黑榜</text>
+      <text class="hero-sub">AI智能推荐 · 发现最佳窗口</text>
+    </view>
+  </view>
+
+  <!-- 榜单分类 -->
+  <view class="tab-row">
+    <view class="tab {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">
+      <text class="tab-icon">🔥</text>
+      <text>综合总榜</text>
+    </view>
+    <view class="tab {{currentTab === 'value' ? 'active' : ''}}" bindtap="switchTab" data-tab="value">
+      <text class="tab-icon">💰</text>
+      <text>性价比之王</text>
+    </view>
+    <view class="tab {{currentTab === 'new' ? 'active' : ''}}" bindtap="switchTab" data-tab="new">
+      <text class="tab-icon">🌟</text>
+      <text>新人黑马</text>
+    </view>
+  </view>
+
+  <!-- 领奖台 TOP3 -->
+  <view class="podium-section" wx:if="{{top3.length > 0}}">
+    <view class="podium">
+      <!-- 第二名 -->
+      <view class="podium-item podium-2" wx:if="{{top3[1]}}" bindtap="goToDetail" data-id="{{top3[1].windowId}}">
+        <view class="podium-medal">🥈</view>
+        <view class="podium-avatar rank-2">
+          <text class="podium-initial">{{top3[1].windowName[0]}}</text>
+        </view>
+        <text class="podium-name">{{top3[1].windowName}}</text>
+        <view class="podium-score">
+          <text class="podium-score-num">{{top3[1].avgScore}}</text>
+          <text class="podium-score-label">分</text>
+        </view>
+        <view class="podium-bar bar-2">
+          <text class="bar-rank">2</text>
+        </view>
+      </view>
+      <!-- 第一名 -->
+      <view class="podium-item podium-1" wx:if="{{top3[0]}}" bindtap="goToDetail" data-id="{{top3[0].windowId}}">
+        <view class="podium-crown">👑</view>
+        <view class="podium-medal">🥇</view>
+        <view class="podium-avatar rank-1">
+          <text class="podium-initial">{{top3[0].windowName[0]}}</text>
+          <view class="avatar-glow"></view>
+        </view>
+        <text class="podium-name">{{top3[0].windowName}}</text>
+        <view class="podium-score">
+          <text class="podium-score-num">{{top3[0].avgScore}}</text>
+          <text class="podium-score-label">分</text>
+        </view>
+        <view class="podium-bar bar-1">
+          <text class="bar-rank">1</text>
+        </view>
+      </view>
+      <!-- 第三名 -->
+      <view class="podium-item podium-3" wx:if="{{top3[2]}}" bindtap="goToDetail" data-id="{{top3[2].windowId}}">
+        <view class="podium-medal">🥉</view>
+        <view class="podium-avatar rank-3">
+          <text class="podium-initial">{{top3[2].windowName[0]}}</text>
+        </view>
+        <text class="podium-name">{{top3[2].windowName}}</text>
+        <view class="podium-score">
+          <text class="podium-score-num">{{top3[2].avgScore}}</text>
+          <text class="podium-score-label">分</text>
+        </view>
+        <view class="podium-bar bar-3">
+          <text class="bar-rank">3</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI推荐语 -->
+    <view class="ai-recommend-card" wx:if="{{top3[0].recommendText}}">
+      <view class="ai-recommend-header">
+        <text class="ai-recommend-icon">✨</text>
+        <text class="ai-recommend-title">AI推荐</text>
+      </view>
+      <text class="ai-recommend-text">{{top3[0].recommendText}}</text>
+    </view>
+  </view>
+
+  <!-- 完整榜单 -->
+  <skeleton loading="{{loading}}" type="ranking" rows="{{5}}">
+  <view class="rank-list">
+    <view class="rank-list-header">
+      <text class="rank-list-title">完整排行</text>
+      <text class="rank-list-count">共{{rankings.length}}家</text>
+    </view>
+    <view class="rank-item" wx:for="{{rankings}}" wx:key="windowId" bindtap="goToDetail" data-id="{{item.windowId}}">
+      <view class="rank-num rank-num-{{index < 3 ? index + 1 : 'normal'}}">{{index + 1}}</view>
+      <view class="rank-info">
+        <text class="rank-name">{{item.windowName}}</text>
+        <view class="rank-meta">
+          <view class="meta-item">
+            <text class="meta-icon">⭐</text>
+            <text class="meta-score">{{item.avgScore}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">📝</text>
+            <text class="meta-count">{{item.reviewCount}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-icon">🔥</text>
+            <text class="meta-hot">{{item.hotness}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="rank-likes">
+        <text class="likes-icon">❤️</text>
+        <text class="likes-count">{{item.likeCount}}</text>
+      </view>
+    </view>
+  </view>
+  </skeleton>
+
+  <view class="empty-tip" wx:if="{{rankings.length === 0 && !loading}}">
+    <view class="empty-icon-wrapper">
+      <text class="empty-icon">🏆</text>
+    </view>
+    <text class="empty-title">暂无排名数据</text>
+    <text class="empty-text">快去评价吧！</text>
+  </view>
+</view>

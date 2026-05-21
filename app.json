@@ -1,0 +1,39 @@
+{
+  "tabBar": {
+    "custom": true,
+    "color": "#999",
+    "selectedColor": "#6C3AED",
+    "backgroundColor": "#fff",
+    "list": [
+      { "pagePath": "pages/feed/feed", "text": "动态" },
+      { "pagePath": "pages/ranking/ranking", "text": "榜单" },
+      { "pagePath": "pages/canteens/canteens", "text": "食堂" },
+      { "pagePath": "pages/profile/profile", "text": "我的" },
+      { "pagePath": "pages/admin/admin", "text": "管理" }
+    ]
+  },
+  "pages": [
+    "pages/canteens/canteens",
+    "pages/feed/feed",
+    "pages/windows/windows",
+    "pages/feedback/feedback",
+    "pages/ranking/ranking",
+    "pages/profile/profile",
+    "pages/profile-edit/profile-edit",
+    "pages/admin/admin",
+    "pages/detail/detail",
+    "pages/map/map",
+    "pages/lost-found/lost-found",
+    "pages/lost-found/publish",
+    "pages/lost-found/detail"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#5B7FFF",
+    "navigationBarTitleText": "食堂评价",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F5F5"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "usingComponents": {}
+}

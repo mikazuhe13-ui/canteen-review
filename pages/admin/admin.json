@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "管理后台",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

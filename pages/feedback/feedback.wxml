@@ -1,0 +1,252 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">📝</text>
+        <text class="badge-text">发布评价</text>
+      </view>
+      <text class="hero-title">分享你的体验</text>
+      <text class="hero-sub">{{windowName}}</text>
+    </view>
+  </view>
+
+  <!-- 多维评分 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-star">
+        <text class="card-icon">⭐</text>
+      </view>
+      <text class="label">评分维度</text>
+      <text class="label-hint">点击图标打分</text>
+    </view>
+    <view class="score-dims">
+      <view class="dim-row" wx:for="{{dimensions}}" wx:key="key">
+        <view class="dim-icon-label">
+          <text class="dim-emoji">{{item.emoji}}</text>
+          <text class="dim-name">{{item.name}}</text>
+        </view>
+        <view class="dim-stars">
+          <text
+            class="star {{s <= item.score ? 'active' : ''}}"
+            wx:for="{{[1,2,3,4,5]}}"
+            wx:for-item="s"
+            wx:key="*this"
+            bindtap="onDimRate"
+            data-dim="{{item.key}}"
+            data-rate="{{s}}"
+          >★</text>
+        </view>
+        <text class="dim-text">{{item.score}}分</text>
+      </view>
+    </view>
+    <view class="total-row">
+      <text class="total-label">综合分</text>
+      <view class="total-score-wrapper">
+        <text class="total-score">{{totalScore}}</text>
+        <text class="total-max">/5.0</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 拍照识菜 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-photo">
+        <text class="card-icon">📸</text>
+      </view>
+      <text class="label">拍照识菜</text>
+    </view>
+    <view class="photo-area" bindtap="takePhoto">
+      <image wx:if="{{foodPhoto}}" class="food-photo" src="{{foodPhoto}}" mode="aspectFill" />
+      <view wx:else class="photo-placeholder">
+        <view class="photo-icon-wrapper">
+          <text class="photo-icon">📷</text>
+        </view>
+        <text class="photo-text">点击拍照识别菜品</text>
+        <text class="photo-hint">AI自动匹配窗口</text>
+      </view>
+    </view>
+    <view class="ai-result" wx:if="{{aiDishName}}">
+      <view class="ai-result-header">
+        <text class="ai-label">🤖 AI识别</text>
+        <text class="ai-dish">{{aiDishName}}</text>
+      </view>
+      <view class="ai-suggest" wx:if="{{suggestWindows.length > 0}}">
+        <text class="suggest-label">可能对应窗口:</text>
+        <view class="suggest-list">
+          <view class="suggest-item" wx:for="{{suggestWindows}}" wx:key="id" bindtap="selectWindow" data-id="{{item.id}}" data-name="{{item.name}}">
+            <text class="suggest-name">{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评价输入 -->
+  <view class="card">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-write">
+        <text class="card-icon">✍️</text>
+      </view>
+      <text class="label">评价内容</text>
+      <view class="ai-write-btn" bindtap="showAiOptions">
+        <text class="ai-write-icon">✨</text>
+        <text>AI帮写</text>
+      </view>
+    </view>
+    <textarea
+      class="feedback-input"
+      placeholder="请分享你的用餐体验..."
+      value="{{feedbackText}}"
+      bindinput="onInput"
+      maxlength="500"
+      auto-height
+    />
+    <view class="input-footer">
+      <text class="char-count">{{feedbackText.length}}/500</text>
+    </view>
+    <!-- AI润色开关 -->
+    <view class="polish-toggle">
+      <view class="polish-toggle-row" bindtap="togglePolish">
+        <view class="polish-info">
+          <text class="polish-icon">✨</text>
+          <text class="polish-text">AI智能润色</text>
+        </view>
+        <switch checked="{{aiPolishOn}}" color="#6C5CE7" />
+      </view>
+      <text class="polish-desc">打开后，负面情绪自动转化为友好建议</text>
+    </view>
+  </view>
+
+  <!-- AI帮写选项 -->
+  <view class="card ai-panel" wx:if="{{showAiPanel}}">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-ai">
+        <text class="card-icon">🎨</text>
+      </view>
+      <text class="label">选择风格</text>
+    </view>
+    <view class="ai-styles">
+      <view class="ai-style-btn" wx:for="{{aiStyles}}" wx:key="key" bindtap="aiWrite" data-style="{{item.key}}">
+        <text class="style-icon">{{item.icon}}</text>
+        <text class="style-name">{{item.name}}</text>
+        <text class="style-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 润色对比卡 -->
+  <view class="compare-overlay" wx:if="{{showCompare}}" bindtap="closeCompare">
+    <view class="compare-card" catchtap="">
+      <view class="compare-header">
+        <text class="compare-title">✨ AI润色对比</text>
+        <text class="compare-close" bindtap="closeCompare">✕</text>
+      </view>
+      <view class="compare-body">
+        <!-- 原始版 -->
+        <view class="compare-section original-section">
+          <view class="compare-label-row">
+            <view class="compare-label-badge original-badge">
+              <text>📝 原始版</text>
+            </view>
+          </view>
+          <view class="compare-content original-content">
+            <text>{{originalText}}</text>
+          </view>
+          <button class="compare-btn original-btn" bindtap="useOriginal">使用原始版</button>
+        </view>
+        <!-- AI优化版 -->
+        <view class="compare-section polished-section">
+          <view class="compare-label-row">
+            <view class="compare-label-badge polished-badge">
+              <text>✨ 优化版</text>
+            </view>
+            <view class="polished-tip">
+              <text class="tip-icon">💡</text>
+              <text class="tip-text">更具建设性</text>
+            </view>
+          </view>
+          <view class="compare-content polished-content">
+            <text>{{polishedText}}</text>
+          </view>
+          <button class="compare-btn polished-btn" bindtap="usePolished">使用优化版</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 昵称设置弹窗 -->
+  <view class="nickname-overlay" wx:if="{{showNicknameModal}}">
+    <view class="nickname-modal">
+      <view class="nickname-header">
+        <text class="nickname-title">👋 欢迎来到食堂评价</text>
+        <text class="nickname-subtitle">设置一个昵称，让其他同学认识你</text>
+      </view>
+      <view class="nickname-body">
+        <view class="avatar-section">
+          <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+            <image class="avatar-preview" src="{{user.avatar || '/images/avatar.png'}}" mode="aspectFill" />
+            <text class="avatar-hint">点击换头像</text>
+          </button>
+        </view>
+        <view class="nickname-input-section">
+          <text class="input-label">我的昵称</text>
+          <input
+            class="nickname-input"
+            type="nickname"
+            placeholder="例如：干饭侠、吃货小王"
+            value="{{tempNickname}}"
+            bindinput="onNicknameInput"
+            maxlength="12"
+          />
+          <text class="input-hint">最多12个字符</text>
+        </view>
+      </view>
+      <view class="nickname-footer">
+        <view class="nickname-btn skip-btn" bindtap="skipNickname">
+          <text>稍后设置</text>
+        </view>
+        <view class="nickname-btn confirm-btn" bindtap="confirmNickname">
+          <text>确认设置</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI润色预览 -->
+  <view class="card" wx:if="{{rewrittenText && rewrittenText !== feedbackText && !showCompare}}">
+    <view class="card-header">
+      <view class="card-icon-bg icon-bg-gem">
+        <text class="card-icon">💎</text>
+      </view>
+      <text class="label">AI优化版</text>
+      <view class="use-btn" bindtap="useRewritten">
+        <text>使用此版本</text>
+      </view>
+    </view>
+    <view class="rewritten-box">
+      <text class="rewritten-quote">"</text>
+      <text class="rewritten-text">{{rewrittenText}}</text>
+      <text class="rewritten-quote">"</text>
+    </view>
+  </view>
+
+  <!-- 敏感内容提示 -->
+  <view class="warning-card" wx:if="{{warningMsg}}">
+    <view class="warning-icon-wrapper">
+      <text class="warning-icon">⚠️</text>
+    </view>
+    <text class="warning-text">{{warningMsg}}</text>
+  </view>
+
+  <button
+    class="btn-primary submit-btn"
+    bindtap="submit"
+    disabled="{{!feedbackText || submitting}}"
+    loading="{{submitting}}"
+  >
+    {{submitting ? '提交中...' : '发布评价'}}
+  </button>
+</view>

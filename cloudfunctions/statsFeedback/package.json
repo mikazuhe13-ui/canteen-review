@@ -1,0 +1,11 @@
+{
+  "name": "statsFeedback",
+  "version": "1.0.0",
+  "description": "评价提交与AI改写云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

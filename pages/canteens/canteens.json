@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "选择食堂",
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

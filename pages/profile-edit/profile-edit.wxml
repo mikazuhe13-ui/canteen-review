@@ -1,0 +1,33 @@
+<view class="page-wrap">
+  <!-- 头像 -->
+  <view class="section">
+    <view class="avatar-section">
+      <text class="label">头像</text>
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{user.avatar || '/images/avatar.png'}}" mode="aspectFill" />
+        <text class="arrow">›</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 昵称 -->
+  <view class="section">
+    <view class="input-item">
+      <text class="label">昵称</text>
+      <input class="input" type="nickname" value="{{user.nickname}}" placeholder="请输入昵称" bindinput="onNicknameInput" />
+    </view>
+  </view>
+
+  <!-- 个人简介 -->
+  <view class="section">
+    <view class="input-item input-item-col">
+      <text class="label">个人简介</text>
+      <textarea class="input bio-input" value="{{user.bio}}" placeholder="介绍一下自己吧~" maxlength="100" bindinput="onBioInput" />
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="btn-wrap">
+    <button class="btn-save" bindtap="saveProfile">保存</button>
+  </view>
+</view>

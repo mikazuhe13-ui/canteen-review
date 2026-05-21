@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 类型选择 -->
+  <view class="card">
+    <text class="card-title">发布类型</text>
+    <view class="type-row">
+      <view class="type-option {{formType === 'lost' ? 'active' : ''}}" bindtap="setType" data-type="lost">
+        <text class="type-emoji">🔍</text>
+        <text class="type-label">我丢了东西</text>
+      </view>
+      <view class="type-option {{formType === 'found' ? 'active' : ''}}" bindtap="setType" data-type="found">
+        <text class="type-emoji">✋</text>
+        <text class="type-label">我捡到东西</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="card">
+    <text class="card-title">物品分类</text>
+    <view class="category-grid">
+      <view class="category-option {{formCategory === item.key ? 'active' : ''}}"
+        wx:for="{{categories}}" wx:key="key"
+        bindtap="setCategory" data-key="{{item.key}}">
+        <text class="cat-emoji">{{item.emoji}}</text>
+        <text class="cat-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图片上传 -->
+  <view class="card">
+    <text class="card-title">物品照片（最多3张）</text>
+    <view class="photo-grid">
+      <view class="photo-item" wx:for="{{images}}" wx:key="*this">
+        <image class="photo-img" src="{{item}}" mode="aspectFill" />
+        <view class="photo-remove" bindtap="removeImage" data-index="{{index}}">×</view>
+      </view>
+      <view class="photo-add" bindtap="addImage" wx:if="{{images.length < 3}}">
+        <text class="photo-add-icon">+</text>
+        <text class="photo-add-text">添加照片</text>
+      </view>
+    </view>
+    <view class="ai-identify" wx:if="{{images.length > 0 && !aiIdentified}}">
+      <button class="ai-btn" bindtap="aiIdentify" loading="{{identifying}}">
+        AI 识别物品
+      </button>
+    </view>
+    <view class="ai-result" wx:if="{{aiTags.length > 0}}">
+      <text class="ai-result-label">AI 识别结果：</text>
+      <text class="ai-result-text">{{aiResultText}}</text>
+    </view>
+  </view>
+
+  <!-- 标题 -->
+  <view class="card">
+    <text class="card-title">标题</text>
+    <input class="form-input" value="{{formTitle}}" placeholder="如：丢失黑色AirPods耳机" bindinput="onTitleInput" />
+    <view class="ai-generate" wx:if="{{formDescription.length > 5 && !formTitle}}">
+      <button class="ai-btn-small" bindtap="aiGenerateTitle" loading="{{generatingTitle}}">
+        AI 生成标题
+      </button>
+    </view>
+  </view>
+
+  <!-- 描述 -->
+  <view class="card">
+    <text class="card-title">详细描述</text>
+    <textarea class="form-textarea" value="{{formDescription}}"
+      placeholder="描述物品特征、丢失/拾获经过等" maxlength="200"
+      bindinput="onDescInput" />
+    <text class="char-count">{{formDescription.length}}/200</text>
+  </view>
+
+  <!-- 地点 -->
+  <view class="card">
+    <text class="card-title">{{formType === 'lost' ? '丢失地点' : '拾获地点'}}</text>
+    <input class="form-input" value="{{formLocation}}" placeholder="如：一食堂二楼、图书馆门口" bindinput="onLocationInput" />
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="card">
+    <text class="card-title">联系方式</text>
+    <input class="form-input" value="{{formContact}}" placeholder="微信号/手机号/QQ" bindinput="onContactInput" />
+    <text class="form-hint">联系方式仅在对方确认匹配后可见</text>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-wrap">
+    <button class="submit-btn" bindtap="onSubmit" loading="{{submitting}}" disabled="{{submitting}}">
+      发布信息
+    </button>
+  </view>
+</view>

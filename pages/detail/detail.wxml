@@ -1,0 +1,166 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="hero-header">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-icon">🍜</text>
+        <text class="badge-text">窗口详情</text>
+      </view>
+      <text class="hero-title">{{window.name}}</text>
+      <text class="hero-sub">{{window.location}}</text>
+      <view class="hero-score-row">
+        <view class="hero-score-badge">
+          <text class="hero-score-num">{{window.totalScore}}</text>
+          <text class="hero-score-star">★</text>
+        </view>
+        <text class="hero-score-count">{{window.reviewCount}}条点评</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 多维评分卡片 -->
+  <view class="card dim-card" wx:if="{{window.avgScores && window.avgScores.taste > 0}}">
+    <view class="card-header">
+      <view class="card-icon-bg">
+        <text class="card-icon">📊</text>
+      </view>
+      <text class="card-title">维度评分</text>
+    </view>
+    <view class="dim-bars">
+      <view class="dim-bar">
+        <text class="bar-label">口味</text>
+        <view class="bar-track"><view class="bar-fill" style="width: {{window.avgScores.taste * 20}}%"></view></view>
+        <text class="bar-score">{{window.avgScores.taste}}</text>
+      </view>
+      <view class="dim-bar">
+        <text class="bar-label">性价比</text>
+        <view class="bar-track"><view class="bar-fill" style="width: {{window.avgScores.value * 20}}%"></view></view>
+        <text class="bar-score">{{window.avgScores.value}}</text>
+      </view>
+      <view class="dim-bar">
+        <text class="bar-label">出餐速度</text>
+        <view class="bar-track"><view class="bar-fill" style="width: {{window.avgScores.speed * 20}}%"></view></view>
+        <text class="bar-score">{{window.avgScores.speed}}</text>
+      </view>
+      <view class="dim-bar">
+        <text class="bar-label">颜值</text>
+        <view class="bar-track"><view class="bar-fill" style="width: {{window.avgScores.look * 20}}%"></view></view>
+        <text class="bar-score">{{window.avgScores.look}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 味觉标签云 -->
+  <view class="card tag-cloud-card" wx:if="{{allTags.length > 0}}">
+    <view class="card-header">
+      <view class="card-icon-bg">
+        <text class="card-icon">🏷️</text>
+      </view>
+      <text class="card-title">味觉标签云</text>
+    </view>
+    <view class="tag-cloud">
+      <view
+        class="bubble-tag {{activeTag === item.name ? 'active' : ''}}"
+        wx:for="{{allTags}}"
+        wx:key="name"
+        style="animation-delay: {{item.delay}}s; font-size: {{item.size}}rpx;"
+        bindtap="filterByTag"
+        data-tag="{{item.name}}"
+      >
+        <text class="tag-name">{{item.name}}</text>
+        <text class="tag-count">×{{item.count}}</text>
+      </view>
+    </view>
+    <view class="tag-filter-tip" wx:if="{{activeTag}}">
+      <text class="filter-tip-text">正在筛选：{{activeTag}}</text>
+      <text class="filter-clear" bindtap="filterByTag" data-tag="{{activeTag}}">清除</text>
+    </view>
+  </view>
+
+  <!-- 快捷打分 -->
+  <view class="card dim-rate-card">
+    <view class="card-header">
+      <view class="card-icon-bg">
+        <text class="card-icon">⭐</text>
+      </view>
+      <text class="card-title">快捷打分</text>
+    </view>
+    <view class="dim-rate-grid">
+      <view class="dim-rate-item" bindtap="onDimRate" dim="taste" data-dim="taste" data-rate="{{window.avgScores.taste >= 4 ? 5 : window.avgScores.taste + 1}}">
+        <text class="dim-emoji">😋</text>
+        <text class="dim-label">口味</text>
+        <text class="dim-score {{window.avgScores.taste >= 4 ? 'high' : ''}}">{{window.avgScores.taste || '-'}}</text>
+      </view>
+      <view class="dim-rate-item" bindtap="onDimRate" dim="value" data-dim="value" data-rate="{{window.avgScores.value >= 4 ? 5 : window.avgScores.value + 1}}">
+        <text class="dim-emoji">💰</text>
+        <text class="dim-label">性价比</text>
+        <text class="dim-score {{window.avgScores.value >= 4 ? 'high' : ''}}">{{window.avgScores.value || '-'}}</text>
+      </view>
+      <view class="dim-rate-item" bindtap="onDimRate" dim="speed" data-dim="speed" data-rate="{{window.avgScores.speed >= 4 ? 5 : window.avgScores.speed + 1}}">
+        <text class="dim-emoji">🚀</text>
+        <text class="dim-label">速度</text>
+        <text class="dim-score {{window.avgScores.speed >= 4 ? 'high' : ''}}">{{window.avgScores.speed || '-'}}</text>
+      </view>
+      <view class="dim-rate-item" bindtap="onDimRate" dim="look" data-dim="look" data-rate="{{window.avgScores.look >= 4 ? 5 : window.avgScores.look + 1}}">
+        <text class="dim-emoji">✨</text>
+        <text class="dim-label">颜值</text>
+        <text class="dim-score {{window.avgScores.look >= 4 ? 'high' : ''}}">{{window.avgScores.look || '-'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门点评 -->
+  <skeleton loading="{{loading}}" type="list" rows="{{3}}">
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">热门点评</text>
+      <text class="section-count">{{filteredReviews.length}}条</text>
+    </view>
+    <view class="review-card" wx:for="{{filteredReviews}}" wx:key="id">
+      <view class="review-top">
+        <view class="review-user-row">
+          <view class="user-avatar-mini">
+            <text class="user-initial">{{item.userInitial || '匿'}}</text>
+          </view>
+          <text class="review-user">{{item.nickname || '匿名同学'}}</text>
+        </view>
+        <view class="review-score-badge">
+          <text class="review-score">{{item.score}}</text>
+          <text class="review-score-star">★</text>
+        </view>
+      </view>
+      <!-- 用户原文 -->
+      <view class="review-bubble user-bubble">
+        <text class="review-content">{{item.text}}</text>
+      </view>
+      <!-- AI优化版 -->
+      <view class="review-bubble ai-bubble" wx:if="{{item.hasRewrite}}">
+        <view class="ai-optimize-badge">
+          <text class="ai-optimize-icon">✨</text>
+          <text class="ai-optimize-text">已优化，更具建设性</text>
+        </view>
+        <text class="review-content ai-content">{{item.rewrittenText}}</text>
+      </view>
+      <view class="review-bottom">
+        <text class="review-time">{{item.time}}</text>
+        <view class="like-btn" bindtap="onLike" data-id="{{item.id}}">
+          <text class="like-icon">♥</text>
+          <text class="like-count">{{item.liked}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{filteredReviews.length === 0}}">
+      <view class="empty-icon-wrapper">
+        <text class="empty-icon-emoji">💬</text>
+      </view>
+      <text class="empty-text-main">暂无点评</text>
+      <text class="empty-text-sub">快来第一个点评吧！</text>
+    </view>
+  </view>
+  </skeleton>
+
+  <view class="bottom-btn" bindtap="goReview" data-id="{{window.id}}">
+    <text>✍️ 写点评</text>
+  </view>
+</view>

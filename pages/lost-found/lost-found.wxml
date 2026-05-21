@@ -1,0 +1,98 @@
+<view class="container">
+  <view class="hero-header">
+    <view class="hero-content">
+      <view class="hero-badge">
+        <text class="badge-text">校园互助</text>
+      </view>
+      <text class="hero-title">失物招领</text>
+      <text class="hero-sub">发布线索、智能匹配、保护联系信息</text>
+      <view class="hero-stats">
+        <view class="hero-stat">
+          <text class="hero-stat-num">{{lostCount}}</text>
+          <text class="hero-stat-label">寻找中</text>
+        </view>
+        <view class="hero-stat-divider"></view>
+        <view class="hero-stat">
+          <text class="hero-stat-num">{{foundCount}}</text>
+          <text class="hero-stat-label">待认领</text>
+        </view>
+        <view class="hero-stat-divider"></view>
+        <view class="hero-stat">
+          <text class="hero-stat-num">{{resolvedCount}}</text>
+          <text class="hero-stat-label">已找回</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-strip">
+    <view class="action-copy">
+      <text class="action-title">快速发布校园线索</text>
+      <text class="action-desc">支持图片、地点、标签和相似信息匹配</text>
+    </view>
+    <view class="action-btn" bindtap="goPublish">发布</view>
+  </view>
+
+  <view class="type-tabs">
+    <view class="type-tab {{currentType === 'all' ? 'active' : ''}}" bindtap="switchType" data-type="all">
+      <text>全部</text>
+    </view>
+    <view class="type-tab {{currentType === 'lost' ? 'active' : ''}}" bindtap="switchType" data-type="lost">
+      <text>我丢了</text>
+    </view>
+    <view class="type-tab {{currentType === 'found' ? 'active' : ''}}" bindtap="switchType" data-type="found">
+      <text>我捡到</text>
+    </view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-list">
+      <view class="category-tag {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">
+        <text>全部</text>
+      </view>
+      <view class="category-tag {{currentCategory === item.key ? 'active' : ''}}"
+        wx:for="{{categories}}" wx:key="key"
+        bindtap="switchCategory" data-category="{{item.key}}">
+        <text>{{item.name}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="item-list">
+    <view class="item-card {{item.type === 'lost' ? 'card-lost' : 'card-found'}}"
+      wx:for="{{filteredItems}}" wx:key="id"
+      bindtap="goDetail" data-id="{{item.id}}">
+      <view class="item-left">
+        <image class="item-image" src="{{item.images[0] || '/images/avatar.png'}}" mode="aspectFill" wx:if="{{item.images.length > 0}}" />
+        <view class="item-emoji-placeholder" wx:else>
+          <text>{{item.categoryName ? item.categoryName[0] : '物'}}</text>
+        </view>
+      </view>
+      <view class="item-body">
+        <view class="item-title-row">
+          <view class="item-type-badge {{item.type}}">{{item.type === 'lost' ? '寻物' : '拾物'}}</view>
+          <text class="item-title">{{item.title}}</text>
+        </view>
+        <text class="item-desc">{{item.description}}</text>
+        <view class="item-meta">
+          <text class="item-location">{{item.location || '未知地点'}}</text>
+          <text class="item-time">{{item.timeLabel}}</text>
+        </view>
+        <view class="item-tags" wx:if="{{item.tags.length > 0}}">
+          <text class="item-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+      </view>
+      <view class="item-status {{item.status}}">{{item.status === 'open' ? '进行中' : '已解决'}}</view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{filteredItems.length === 0}}">
+      <view class="empty-icon"></view>
+      <text class="empty-text-main">暂无记录</text>
+      <text class="empty-text-sub">点击右下角发布第一条信息</text>
+    </view>
+  </view>
+
+  <view class="fab-btn" bindtap="goPublish">
+    <text class="fab-icon">+</text>
+  </view>
+</view>
