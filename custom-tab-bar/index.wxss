@@ -24,9 +24,9 @@
 }
 
 .icon-wrap {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 26rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 32rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,8 +39,8 @@
 }
 
 .tab-icon {
-  width: 68rpx;
-  height: 68rpx;
+  width: 84rpx;
+  height: 84rpx;
 }
 
 .tab-txt {
