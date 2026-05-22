@@ -24,9 +24,9 @@
 }
 
 .icon-wrap {
-  width: 96rpx;
-  height: 96rpx;
-  border-radius: 32rpx;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,18 +35,25 @@
 
 .icon-wrap-on {
   background: #EAF3FF;
-  transform: translateY(-2rpx);
+  transform: scale(1.12);
 }
 
 .tab-icon {
-  width: 84rpx;
-  height: 84rpx;
+  width: 62rpx;
+  height: 62rpx;
+  transition: filter 0.18s ease, transform 0.18s ease;
+  filter: grayscale(1) brightness(0.72) contrast(1.18) opacity(0.82);
+}
+
+.on .tab-icon {
+  filter: none;
+  transform: scale(1.08);
 }
 
 .tab-txt {
   font-size: 21rpx;
   line-height: 1.2;
-  color: #8C9199;
+  color: #6F7782;
 }
 
 .tab-txt-on {

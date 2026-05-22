@@ -37,6 +37,43 @@
     </view>
   </view>
 
+  <!-- 调试数据面板 -->
+  <view class="debug-panel">
+    <view class="debug-head">
+      <view>
+        <text class="debug-title">调试数据面板</text>
+        <text class="debug-sub">用于检查虚拟用户、评价和榜单覆盖情况</text>
+      </view>
+      <view class="debug-badge">MOCK</view>
+    </view>
+    <view class="debug-grid">
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.mockUsers}}</text>
+        <text class="debug-label">虚拟用户</text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.reviews}}</text>
+        <text class="debug-label">模拟评价</text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.activeUsers}}</text>
+        <text class="debug-label">参与用户</text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.coveredWindows}}</text>
+        <text class="debug-label">覆盖窗口</text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.todayReviews}}</text>
+        <text class="debug-label">今日评价</text>
+      </view>
+      <view class="debug-item">
+        <text class="debug-num">{{debugStats.avgReviewsPerWindow}}</text>
+        <text class="debug-label">窗口均评</text>
+      </view>
+    </view>
+  </view>
+
   <!-- 7日趋势 -->
   <view class="card">
     <view class="card-header">
@@ -47,7 +84,7 @@
     </view>
     <view class="trend-chart">
       <view class="trend-bar-wrapper" wx:for="{{trend}}" wx:key="label">
-        <view class="trend-bar" style="height: {{item.count * 30 + 10}}rpx">
+        <view class="trend-bar" style="height: {{item.height}}rpx">
           <text class="trend-count">{{item.count}}</text>
         </view>
         <text class="trend-label">{{item.label}}</text>
@@ -129,6 +166,9 @@
       </view>
       <view class="mod-tab {{moderationFilter === 'pending' ? 'active' : ''}}" bindtap="onModerationFilter" data-filter="pending">
         <text>待审核</text>
+      </view>
+      <view class="approve-all-btn" catchtap="approveAll">
+        <text>✓ 全部通过</text>
       </view>
     </view>
     <view class="review-list">

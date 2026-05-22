@@ -12,9 +12,9 @@ Page({
     recommendTexts: [],
     loading: true,
     banners: [
-      { id: 1, image: '/images/banner1.jpg', tag: '热门活动' },
-      { id: 2, image: '/images/banner2.jpg', tag: '新品上线' },
-      { id: 3, image: '/images/banner3.jpg', tag: '限时优惠' }
+      { id: 1, image: '/images/banner1.jpg', tag: '热门活动', title: '今日食堂推荐', desc: '看看同学们最近都在吃什么' },
+      { id: 2, image: '/images/banner2.jpg', tag: '新品上线', title: '新菜品尝鲜', desc: '发现窗口新品和隐藏菜单' },
+      { id: 3, image: '/images/banner3.jpg', tag: '限时优惠', title: '学生专属福利', desc: '优惠、活动和校园服务入口' }
     ],
     dishCategories: [
       { id: 'hot', name: '热菜', image: '/images/food/18.jpg' },

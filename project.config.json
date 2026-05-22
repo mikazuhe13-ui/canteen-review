@@ -1,7 +1,10 @@
 {
   "description": "校园食堂窗口点评",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "scripts" },
+      { "type": "folder", "value": "cloudfunctions" }
+    ],
     "include": []
   },
   "setting": {
@@ -16,7 +19,7 @@
     "coverView": true,
     "compileWorklet": false,
     "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,

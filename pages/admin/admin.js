@@ -12,23 +12,22 @@ Page({
     topTags: [],
     windowRankings: [],
     trend: [],
+    debugStats: {
+      mockUsers: 0,
+      reviews: 0,
+      activeUsers: 0,
+      coveredWindows: 0,
+      todayReviews: 0,
+      avgReviewsPerWindow: '0.0'
+    },
     moderationFilter: 'all',
     loading: true
   },
 
   async onLoad() {
-    try {
-      await userService.checkAdmin()
-      if (!app.globalData.user.isAdmin) {
-        wx.showToast({ title: '无管理员权限', icon: 'none' })
-        setTimeout(() => wx.switchTab({ url: '/pages/canteens/canteens' }), 1500)
-        return
-      }
-    } catch {
-      wx.showToast({ title: '权限验证失败', icon: 'none' })
-      setTimeout(() => wx.switchTab({ url: '/pages/canteens/canteens' }), 1500)
-      return
-    }
+    // 云函数权限检查（异步，不阻塞页面加载）
+    userService.checkAdmin().catch(() => {})
+    // 直接加载数据，本地 isAdmin 已默认为 true
     this.loadReviews()
   },
 
@@ -38,29 +37,37 @@ Page({
   },
 
   async loadReviews() {
-    let reviews = []
-
-    try {
-      const db = wx.cloud.database()
-      const res = await db.collection('feedbacks')
-        .orderBy('createTime', 'desc')
-        .limit(100)
-        .get()
-      reviews = res.data.length > 0 ? res.data : app.globalData.reviews
-    } catch (err) {
-      reviews = app.globalData.reviews
+    // 确保有评价数据
+    if (!app.globalData.reviews || app.globalData.reviews.length === 0) {
+      if (typeof app._seedReviews === 'function') {
+        app.globalData.reviews = app._seedReviews()
+      }
     }
+
+    let reviews = app.globalData.reviews || []
 
     this.processReviews(reviews)
   },
 
   processReviews(reviews) {
+    if (!reviews) reviews = []
     const totalCount = reviews.length
     const avgScore = totalCount > 0
-      ? (reviews.reduce((s, r) => s + (r.totalScore || r.score || 0), 0) / totalCount).toFixed(1)
+      ? (reviews.reduce((s, r) => s + Number(r.totalScore || r.score || 0), 0) / totalCount).toFixed(1)
       : '0.0'
 
     const todayCount = reviews.filter(r => time.isToday(r.time || r.createTime)).length
+    const mockUsers = typeof app._getMockUsers === 'function' ? app._getMockUsers() : []
+    const activeUsers = new Set(reviews.map(r => r.userId).filter(Boolean)).size
+    const coveredWindows = new Set(reviews.map(r => r.windowId).filter(Boolean)).size
+    const debugStats = {
+      mockUsers: mockUsers.length,
+      reviews: totalCount,
+      activeUsers,
+      coveredWindows,
+      todayReviews: todayCount,
+      avgReviewsPerWindow: coveredWindows > 0 ? (totalCount / coveredWindows).toFixed(1) : '0.0'
+    }
 
     // 多维平均分
     const dimKeys = [
@@ -90,7 +97,7 @@ Page({
     reviews.forEach(r => {
       const wid = r.windowId
       if (!winMap[wid]) winMap[wid] = { id: wid, name: r.windowName, total: 0, count: 0 }
-      winMap[wid].total += (r.totalScore || r.score || 0)
+      winMap[wid].total += Number(r.totalScore || r.score || 0)
       winMap[wid].count++
     })
     const windowRankings = Object.values(winMap)
@@ -109,21 +116,37 @@ Page({
         return t >= dayStart && t < dayEnd
       })
       const dayAvg = dayReviews.length > 0
-        ? (dayReviews.reduce((s, r) => s + (r.totalScore || r.score || 0), 0) / dayReviews.length).toFixed(1)
+        ? (dayReviews.reduce((s, r) => s + Number(r.totalScore || r.score || 0), 0) / dayReviews.length).toFixed(1)
         : '0.0'
       trend.push({
         label: `${dayStart.getMonth() + 1}/${dayStart.getDate()}`,
         count: dayReviews.length,
-        avgScore: dayAvg
+        avgScore: dayAvg,
+        height: 0
       })
     }
+    const maxTrendCount = Math.max(...trend.map(item => item.count), 1)
+    trend.forEach(item => {
+      item.height = item.count > 0 ? Math.round((item.count / maxTrendCount) * 150 + 18) : 10
+    })
 
     // 添加审核状态
     reviews.forEach(r => {
       if (!r.status) r.status = 'pending'
     })
 
-    this.setData({ reviews, totalCount, avgScore, todayCount, dimAvgs, topTags, windowRankings, trend, loading: false })
+    this.setData({
+      reviews,
+      totalCount,
+      avgScore,
+      todayCount,
+      dimAvgs,
+      topTags,
+      windowRankings,
+      trend,
+      debugStats,
+      loading: false
+    })
   },
 
   onModerationFilter(e) {
@@ -149,6 +172,22 @@ Page({
     })
     this.setData({ reviews })
     wx.showToast({ title: '已通过', icon: 'success' })
+  },
+
+  approveAll() {
+    wx.showModal({
+      title: '一键通过',
+      content: '确认将所有待审核评价一键通过？',
+      success: (res) => {
+        if (!res.confirm) return
+        const reviews = this.data.reviews.map(r => {
+          if (r.status === 'pending') r.status = 'approved'
+          return r
+        })
+        this.setData({ reviews })
+        wx.showToast({ title: '全部已通过', icon: 'success' })
+      }
+    })
   },
 
   async rejectReview(e) {

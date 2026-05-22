@@ -1,29 +1,40 @@
 <view class="page-wrap">
-  <!-- 背景图 -->
-  <view class="bg-wrap">
-    <image class="bg-image" src="/images/profile-bg.jpg" mode="aspectFill" />
-    <view class="bg-overlay"></view>
+  <view class="top-field">
+    <image class="top-bg-image" src="/images/profile-bg.jpg" mode="aspectFill" />
+    <view class="top-bg-overlay"></view>
+    <view class="comic-dot dot-a"></view>
+    <view class="comic-dot dot-b"></view>
+    <view class="page-title-row">
+      <view>
+        <text class="page-kicker">校园生活账号</text>
+        <text class="page-title">我的</text>
+      </view>
+      <view class="credit-badge">
+        <text class="credit-label">信用分</text>
+        <text class="credit-num">{{user.creditScore}}</text>
+      </view>
+    </view>
   </view>
 
-  <!-- 顶部个人信息卡片 -->
   <view class="profile-card" bindtap="goEditProfile">
-    <view class="profile-row">
+    <view class="profile-main">
       <view class="avatar-wrapper">
         <image class="avatar" src="{{user.avatar || '/images/avatar.png'}}" mode="aspectFill" />
+        <view class="avatar-sticker">EDIT</view>
       </view>
       <view class="profile-info">
-        <text class="nickname">{{user.nickname}}</text>
+        <text class="nickname">{{user.nickname || '校园同学'}}</text>
         <text class="bio">{{user.bio || '这个人很懒，什么都没留下~'}}</text>
       </view>
       <text class="edit-arrow">›</text>
     </view>
-    <view class="credit-row">
-      <text class="credit-label">信用分</text>
-      <text class="credit-num">{{user.creditScore}}</text>
+    <view class="identity-strip">
+      <text class="identity-pill">校园身份</text>
+      <text class="identity-pill identity-green">校园互助</text>
+      <text class="identity-copy">完善资料，让同学更快认识你</text>
     </view>
   </view>
 
-  <!-- 校园资产 -->
   <view class="asset-row">
     <view class="asset-item">
       <text class="asset-num">{{user.reviewCount}}</text>
@@ -46,97 +57,120 @@
     </view>
   </view>
 
-  <!-- AI 助手 -->
   <view class="ai-card" bindtap="goAI">
-    <view class="ai-left">
-      <view class="ai-icon">
-        <image class="ai-icon-img" src="/images/icons/profile/ai.svg" mode="aspectFit" />
-      </view>
-      <view class="ai-info">
-        <text class="ai-title">校园 AI 助手</text>
-        <text class="ai-desc">问办事流程、找失物线索、推荐今天吃什么</text>
-      </view>
+    <view class="ai-mark">
+      <image class="ai-icon-img" src="/images/icons/profile/ai.svg" mode="aspectFit" />
     </view>
-    <text class="ai-btn">立即咨询</text>
+    <view class="ai-info">
+      <text class="ai-title">校园 AI 助手</text>
+      <text class="ai-desc">问办事流程、找失物线索、推荐今天吃什么</text>
+    </view>
+    <view class="ai-btn">GO</view>
   </view>
 
-  <!-- 我的内容 -->
-  <view class="section">
+  <view class="section-head">
+    <text class="section-title">常用入口</text>
+    <text class="section-more">快捷</text>
+  </view>
+  <view class="tool-grid">
+    <view class="tool-card" bindtap="goFeed">
+      <view class="tool-sticker">POST</view>
+      <view class="tool-icon tool-blue">
+        <image class="tool-icon-img" src="/images/icons/profile/posts.svg" mode="aspectFit" />
+      </view>
+      <text class="tool-title">我的发布</text>
+    </view>
+    <view class="tool-card" bindtap="goMyReviews">
+      <view class="tool-sticker sticker-green">RATE</view>
+      <view class="tool-icon tool-green">
+        <image class="tool-icon-img" src="/images/icons/profile/reviews.svg" mode="aspectFit" />
+      </view>
+      <text class="tool-title">我的评价</text>
+    </view>
+    <view class="tool-card" bindtap="goLostFound">
+      <view class="tool-sticker sticker-amber">HELP</view>
+      <view class="tool-icon tool-amber">
+        <image class="tool-icon-img" src="/images/icons/profile/lost.svg" mode="aspectFit" />
+      </view>
+      <text class="tool-title">失物记录</text>
+    </view>
+    <view class="tool-card" bindtap="goCoupons">
+      <view class="tool-sticker sticker-red">SALE</view>
+      <view class="tool-icon tool-red">
+        <image class="tool-icon-img" src="/images/icons/profile/coupon.svg" mode="aspectFit" />
+      </view>
+      <text class="tool-title">优惠卡券</text>
+    </view>
+  </view>
+
+  <view class="section-head">
     <text class="section-title">我的内容</text>
-    <view class="menu-list">
-      <view class="menu-item" bindtap="goFeed">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/posts.svg" mode="aspectFit" /></view>
-        <text class="menu-text">我的发布</text>
-        <text class="menu-arrow">›</text>
-      </view>
-      <view class="menu-item" bindtap="goMyReviews">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/reviews.svg" mode="aspectFit" /></view>
-        <text class="menu-text">我的评价</text>
-        <text class="menu-arrow">›</text>
-      </view>
-      <view class="menu-item" bindtap="goFavorites">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/favorite.svg" mode="aspectFit" /></view>
+  </view>
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goFavorites">
+      <view class="menu-icon-wrap icon-red"><image class="menu-icon-img" src="/images/icons/profile/favorite.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">我的收藏</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">收藏的窗口和菜品</text>
       </view>
-      <view class="menu-item" bindtap="goHistory">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/history.svg" mode="aspectFit" /></view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goHistory">
+      <view class="menu-icon-wrap icon-blue"><image class="menu-icon-img" src="/images/icons/profile/history.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">浏览记录</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">最近看过的内容</text>
       </view>
+      <text class="menu-arrow">›</text>
     </view>
-  </view>
-
-  <!-- 校园服务 -->
-  <view class="section">
-    <text class="section-title">校园服务</text>
-    <view class="menu-list">
-      <view class="menu-item" bindtap="goFeedback">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/feedback.svg" mode="aspectFit" /></view>
+    <view class="menu-item" bindtap="goFeedback">
+      <view class="menu-icon-wrap icon-green"><image class="menu-icon-img" src="/images/icons/profile/feedback.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">我的反馈</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">建议、投诉和处理进度</text>
       </view>
-      <view class="menu-item" bindtap="goLostFound">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/lost.svg" mode="aspectFit" /></view>
-        <text class="menu-text">失物记录</text>
-        <text class="menu-arrow">›</text>
-      </view>
-      <view class="menu-item" bindtap="goCoupons">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/coupon.svg" mode="aspectFit" /></view>
-        <text class="menu-text">优惠卡券</text>
-        <text class="menu-arrow">›</text>
-      </view>
-      <view class="menu-item" bindtap="onShare">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/invite.svg" mode="aspectFit" /></view>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="section-head">
+    <text class="section-title">更多服务</text>
+  </view>
+  <view class="menu-list">
+    <view class="menu-item" bindtap="onShare">
+      <view class="menu-icon-wrap icon-amber"><image class="menu-icon-img" src="/images/icons/profile/invite.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">邀请好友</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">一起完善校园生活信息</text>
       </view>
+      <text class="menu-arrow">›</text>
     </view>
-  </view>
-
-  <!-- 更多 -->
-  <view class="section">
-    <text class="section-title">更多</text>
-    <view class="menu-list">
-      <view class="menu-item" bindtap="goSettings">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/settings.svg" mode="aspectFit" /></view>
+    <view class="menu-item" bindtap="goSettings">
+      <view class="menu-icon-wrap icon-blue"><image class="menu-icon-img" src="/images/icons/profile/settings.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">设置</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">账号、隐私和通知</text>
       </view>
-      <view class="menu-item">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/about.svg" mode="aspectFit" /></view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item">
+      <view class="menu-icon-wrap icon-green"><image class="menu-icon-img" src="/images/icons/profile/about.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">关于我们</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">校园服务与共创计划</text>
       </view>
-      <view class="menu-item" wx:if="{{user.isAdmin}}" bindtap="goAdmin">
-        <view class="menu-icon-wrap"><image class="menu-icon-img" src="/images/icons/profile/admin.svg" mode="aspectFit" /></view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" wx:if="{{user.isAdmin}}" bindtap="goAdmin">
+      <view class="menu-icon-wrap icon-dark"><image class="menu-icon-img" src="/images/icons/profile/admin.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
         <text class="menu-text">管理后台</text>
-        <text class="menu-arrow">›</text>
+        <text class="menu-desc">内容与校园服务管理</text>
       </view>
+      <text class="menu-arrow">›</text>
     </view>
   </view>
 
-  <!-- 退出登录 -->
   <view class="logout-wrap" bindtap="logout">
     <text class="logout-text">退出登录</text>
   </view>

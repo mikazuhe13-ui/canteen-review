@@ -22,7 +22,7 @@ const defaultUser = () => ({
   reviewCount: 0,
   likeCount: 0,
   creditHistory: [],
-  isAdmin: false,
+  isAdmin: true,
   hasSetNickname: false,
   bio: ''
 })
