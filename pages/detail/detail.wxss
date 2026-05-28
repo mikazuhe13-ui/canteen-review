@@ -48,7 +48,7 @@
   font-weight: 800;
   color: #fff;
   margin-bottom: 8rpx;
-  letter-spacing: 4rpx;
+  letter-spacing: 0;
 }
 
 .hero-sub {
@@ -74,7 +74,7 @@
   color: #fff;
   margin-bottom: 8rpx;
   text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
-  letter-spacing: 4rpx;
+  letter-spacing: 0;
 }
 
 .hero-sub {
@@ -564,10 +564,149 @@
   font-size: 32rpx;
   font-weight: 700;
   box-shadow: 0 -8rpx 24rpx rgba(108, 92, 231, 0.25);
-  letter-spacing: 4rpx;
+  letter-spacing: 0;
 }
 
 .bottom-btn:active {
   opacity: 0.9;
   transform: translateY(-2rpx);
+}
+
+/* Campus comic polish */
+.container {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(22, 119, 255, 0.06) 0 4rpx, transparent 5rpx) 0 330rpx / 34rpx 34rpx,
+    linear-gradient(180deg, #FFF8E8 0%, #F7F8FA 450rpx),
+    #F7F8FA;
+}
+
+.hero-bg {
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 176, 32, 0.32) 0 54rpx, transparent 56rpx),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.18) 0 4rpx, transparent 5rpx) 0 0 / 38rpx 38rpx,
+    linear-gradient(135deg, #172033 0%, #245477 56%, #22A06B 100%);
+  border-bottom: 5rpx solid #172033;
+}
+
+.hero-badge,
+.hero-score-badge {
+  background: #FFF7E8;
+  border: 3rpx solid #172033;
+  box-shadow: 5rpx 5rpx 0 #FFB020;
+  transform: rotate(-3deg);
+}
+
+.badge-text,
+.hero-score-num {
+  color: #172033;
+  font-weight: 900;
+}
+
+.hero-title {
+  letter-spacing: 0;
+  text-shadow: 4rpx 4rpx 0 rgba(23, 32, 51, 0.70);
+}
+
+.card,
+.section {
+  border: 3rpx solid #172033;
+  border-radius: 24rpx;
+  box-shadow: 8rpx 8rpx 0 #E5ECF5;
+}
+
+.tag-cloud-card,
+.dim-rate-card {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 176, 32, 0.12) 0 34rpx, transparent 36rpx),
+    #FFFFFF;
+  border-color: #172033;
+}
+
+.card-icon-bg,
+.dim-rate-item,
+.user-avatar-mini,
+.review-score-badge,
+.like-btn,
+.review-time {
+  border: 2rpx solid #172033;
+}
+
+.bubble-tag {
+  border: 2rpx solid #172033;
+  box-shadow: 4rpx 4rpx 0 #DCE7F5;
+}
+
+.bubble-tag.active,
+.bubble-tag:active {
+  background: #172033;
+}
+
+.bar-track {
+  border: 2rpx solid #D8DFEA;
+  height: 18rpx;
+  background: #FFFFFF;
+}
+
+.bar-fill {
+  background: linear-gradient(90deg, #22A06B, #FFB020);
+}
+
+.bottom-btn {
+  left: 24rpx;
+  right: 24rpx;
+  bottom: 24rpx;
+  border-radius: 24rpx;
+  background: #172033;
+  border: 3rpx solid #172033;
+  box-shadow: 8rpx 8rpx 0 #FFB020;
+  padding: 28rpx 0;
+}
+
+/* Pop art layer */
+.hero-bg {
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 79, 184, 0.34) 0 54rpx, transparent 56rpx),
+    radial-gradient(circle at 18% 24%, rgba(255, 225, 77, 0.28) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    linear-gradient(135deg, #172033 0%, #245477 56%, #00C2FF 100%);
+}
+
+.hero-title,
+.card-title,
+.section-title {
+  text-shadow: 3rpx 3rpx 0 #FFE14D, 6rpx 6rpx 0 rgba(255, 79, 184, 0.24);
+}
+
+.card,
+.section,
+.review-card {
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(0, 194, 255, 0.08) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    #FFFFFF;
+}
+
+.bottom-btn,
+.hero-score-badge,
+.filter-clear {
+  box-shadow: 5rpx 5rpx 0 #FF4FB8;
+}
+
+.hero-burst {
+  right: 26rpx;
+  bottom: 38rpx;
+}
+
+.hero-chip {
+  right: 112rpx;
+  top: 96rpx;
+}
+
+.hero-zigzag {
+  right: 34rpx;
+  top: 160rpx;
+  transform: rotate(-12deg);
+}
+
+.hero-content {
+  padding-right: 142rpx;
 }

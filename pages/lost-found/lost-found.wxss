@@ -411,3 +411,121 @@
   font-weight: 300;
   line-height: 1;
 }
+
+/* Campus comic polish */
+.container {
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(22, 119, 255, 0.06) 0 4rpx, transparent 5rpx) 0 300rpx / 34rpx 34rpx,
+    linear-gradient(180deg, #FFF8E8 0%, #F7F8FA 420rpx),
+    #F7F8FA;
+}
+
+.hero-header {
+  background:
+    radial-gradient(circle at 88% 20%, rgba(255, 176, 32, 0.22) 0 52rpx, transparent 54rpx),
+    #FFFFFF;
+  border-bottom: 4rpx solid #172033;
+}
+
+.hero-badge {
+  background: #FFF7E8;
+  border: 3rpx solid #172033;
+  box-shadow: 5rpx 5rpx 0 #FFB020;
+  transform: rotate(-3deg);
+}
+
+.badge-text {
+  color: #172033;
+  font-weight: 900;
+}
+
+.hero-title {
+  text-shadow: 3rpx 3rpx 0 #FFE4A8;
+}
+
+.hero-stats,
+.action-strip,
+.type-tabs,
+.item-card {
+  border: 3rpx solid #172033;
+  border-radius: 22rpx;
+  box-shadow: 7rpx 7rpx 0 #E5ECF5;
+}
+
+.action-strip {
+  box-shadow: 7rpx 7rpx 0 #FFB020;
+}
+
+.type-tab.active,
+.category-tag.active {
+  background: #172033;
+  color: #FFFFFF;
+  box-shadow: 4rpx 4rpx 0 #FFB020;
+}
+
+.category-tag,
+.item-image,
+.item-emoji-placeholder,
+.item-tag,
+.item-status {
+  border: 2rpx solid #172033;
+}
+
+.fab-btn {
+  background: #172033;
+  border: 3rpx solid #172033;
+  border-radius: 28rpx;
+  box-shadow: 7rpx 7rpx 0 #FFB020;
+}
+
+/* Pop art layer */
+.hero-header {
+  background:
+    radial-gradient(circle at 88% 20%, rgba(255, 79, 184, 0.22) 0 52rpx, transparent 54rpx),
+    radial-gradient(circle at 18rpx 18rpx, rgba(0, 194, 255, 0.10) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    #FFFFFF;
+}
+
+.hero-title,
+.empty-text-main {
+  text-shadow: 3rpx 3rpx 0 #FFE14D, 6rpx 6rpx 0 rgba(255, 79, 184, 0.20);
+}
+
+.item-card,
+.hero-stats,
+.type-tabs {
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(255, 79, 184, 0.07) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    #FFFFFF;
+}
+
+.item-status,
+.fab-btn,
+.action-btn {
+  box-shadow: 4rpx 4rpx 0 #00C2FF;
+}
+
+.hero-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-burst {
+  right: 26rpx;
+  bottom: 34rpx;
+}
+
+.hero-chip {
+  right: 112rpx;
+  top: 72rpx;
+}
+
+.hero-zigzag {
+  right: 34rpx;
+  top: 134rpx;
+  transform: rotate(-12deg);
+}
+
+.hero-content {
+  padding-right: 132rpx;
+}

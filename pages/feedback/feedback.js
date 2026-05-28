@@ -208,6 +208,34 @@ Page({
 
   async onChooseAvatar(e) {
     const avatarUrl = e.detail.avatarUrl
+    this.setNicknameAvatar(avatarUrl)
+  },
+
+  chooseNicknameAvatar() {
+    if (wx.chooseMedia) {
+      wx.chooseMedia({
+        count: 1,
+        mediaType: ['image'],
+        sourceType: ['album'],
+        success: (res) => {
+          const file = res.tempFiles && res.tempFiles[0]
+          if (file && file.tempFilePath) this.setNicknameAvatar(file.tempFilePath)
+        }
+      })
+      return
+    }
+
+    wx.chooseImage({
+      count: 1,
+      sourceType: ['album'],
+      success: (res) => {
+        const path = res.tempFilePaths && res.tempFilePaths[0]
+        if (path) this.setNicknameAvatar(path)
+      }
+    })
+  },
+
+  async setNicknameAvatar(avatarUrl) {
     wx.showLoading({ title: '检查头像中...' })
 
     try {

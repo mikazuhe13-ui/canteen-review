@@ -8,8 +8,7 @@
       { "pagePath": "pages/feed/feed", "text": "动态" },
       { "pagePath": "pages/ranking/ranking", "text": "榜单" },
       { "pagePath": "pages/canteens/canteens", "text": "食堂" },
-      { "pagePath": "pages/profile/profile", "text": "我的" },
-      { "pagePath": "pages/admin/admin", "text": "管理" }
+      { "pagePath": "pages/profile/profile", "text": "我的" }
     ]
   },
   "pages": [
@@ -35,6 +34,5 @@
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
-  "lazyCodeLoading": "requiredComponents",
   "usingComponents": {}
 }

@@ -751,3 +751,140 @@ page {
   color: #8A93A3;
   line-height: 1.35;
 }
+
+/* Campus comic polish */
+.report-hero::after {
+  content: 'RANKING';
+  position: absolute;
+  right: 22rpx;
+  top: 22rpx;
+  height: 34rpx;
+  padding: 0 12rpx;
+  display: flex;
+  align-items: center;
+  background: #FFB020;
+  color: #172033;
+  border: 2rpx solid #172033;
+  border-radius: 8rpx;
+  font-size: 16rpx;
+  font-weight: 900;
+  transform: rotate(7deg);
+}
+
+.period-btn.active,
+.tab-pill.active,
+.quick-cat.qc-active {
+  box-shadow: 4rpx 4rpx 0 #FFB020;
+}
+
+.champion-card::after {
+  content: 'WINNER';
+  position: absolute;
+  left: 24rpx;
+  top: -10rpx;
+  height: 30rpx;
+  padding: 0 10rpx;
+  display: flex;
+  align-items: center;
+  background: #FF4D4F;
+  color: #FFFFFF;
+  border: 2rpx solid #172033;
+  border-radius: 8rpx;
+  font-size: 15rpx;
+  font-weight: 900;
+  transform: rotate(-5deg);
+}
+
+.podium-card,
+.rank-list,
+.match-section {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 176, 32, 0.08) 0 28rpx, transparent 30rpx),
+    #FFFFFF;
+}
+
+.rank-item:nth-child(odd) {
+  background: #FFFDF7;
+}
+
+.rank-go {
+  border: 2rpx solid #172033;
+  color: #172033;
+  background: #FFF7E8;
+  font-weight: 900;
+}
+
+/* Pop art layer */
+.report-hero {
+  background:
+    radial-gradient(circle at 90% 12%, rgba(255, 79, 184, 0.20) 0 48rpx, transparent 50rpx),
+    radial-gradient(circle at 18rpx 18rpx, rgba(0, 194, 255, 0.12) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    linear-gradient(180deg, #FFFFFF 0%, #FFFDF7 100%);
+}
+
+.report-title,
+.rank-title,
+.empty-title {
+  text-shadow: 3rpx 3rpx 0 #FFE14D, 6rpx 6rpx 0 rgba(0, 194, 255, 0.22);
+}
+
+.report-badge,
+.period-btn.active,
+.tab-pill.active,
+.quick-cat.qc-active {
+  background:
+    linear-gradient(135deg, #172033 0%, #172033 60%, #FF4FB8 60%, #FF4FB8 100%);
+}
+
+.champion-avatar,
+.pod-avatar,
+.rank-num {
+  box-shadow: 4rpx 4rpx 0 #00C2FF;
+}
+
+.champion-card,
+.rank-list,
+.match-section {
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(255, 79, 184, 0.08) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    #FFFFFF;
+}
+
+.hero-burst {
+  right: 18rpx;
+  top: 26rpx;
+  width: 76rpx;
+  height: 76rpx;
+  border-radius: 24rpx 50% 26rpx 50%;
+  box-shadow: 5rpx 5rpx 0 #FF4FB8;
+  transform: rotate(10deg);
+}
+
+.hero-burst text {
+  font-size: 18rpx;
+}
+
+.hero-chip {
+  right: 104rpx;
+  top: 104rpx;
+  height: 30rpx;
+  padding: 0 10rpx;
+  font-size: 14rpx;
+  box-shadow: 4rpx 4rpx 0 #FFE14D;
+}
+
+.hero-zigzag {
+  right: 18rpx;
+  top: 166rpx;
+  width: 154rpx;
+  transform: rotate(-12deg);
+}
+
+.report-title-row {
+  padding-right: 118rpx;
+}
+
+.report-badge {
+  right: 8rpx;
+  top: 98rpx;
+}

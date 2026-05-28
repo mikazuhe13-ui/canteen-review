@@ -75,7 +75,12 @@ function saveUser() {
 /** 更新用户信息 */
 function updateUser(fields) {
   if (!_globalData) return
-  Object.assign(_globalData.user, fields)
+  const nextFields = Object.assign({}, fields)
+  if (typeof nextFields.nickname === 'string') {
+    nextFields.nickname = nextFields.nickname.trim()
+    nextFields.hasSetNickname = !!nextFields.nickname
+  }
+  Object.assign(_globalData.user, nextFields)
   saveUser()
 }
 

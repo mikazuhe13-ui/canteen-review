@@ -1,7 +1,19 @@
 page {
-  background-color: #F5F5F5;
+  background-color: #F7F8FA;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #333;
+  color: #172033;
+  --ink: #172033;
+  --paper: #FFFDF7;
+  --blue: #1677FF;
+  --green: #22A06B;
+  --amber: #FFB020;
+  --red: #FF4D4F;
+  --soft-blue: #EAF3FF;
+  --soft-green: #EAF7F0;
+  --soft-amber: #FFF7E8;
+  --line: #D8DFEA;
+  --shadow-blue: #DCE7F5;
+  --shadow-amber: #FFE4A8;
 }
 
 .container {
@@ -11,10 +23,11 @@ page {
 
 .card {
   background: #fff;
-  border-radius: 20rpx;
+  border: 3rpx solid var(--ink);
+  border-radius: 22rpx;
   padding: 28rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  box-shadow: 7rpx 7rpx 0 var(--shadow-blue);
 }
 
 .card-title {
@@ -30,16 +43,16 @@ page {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #6C5CE7, #5B7FFF);
+  background: var(--ink);
   color: #fff;
-  border: none;
-  border-radius: 16rpx;
+  border: 3rpx solid var(--ink);
+  border-radius: 18rpx;
   padding: 28rpx 0;
   font-size: 32rpx;
-  font-weight: 600;
+  font-weight: 900;
   text-align: center;
   width: 100%;
-  box-shadow: 0 4rpx 16rpx rgba(108, 92, 231, 0.2);
+  box-shadow: 7rpx 7rpx 0 var(--amber);
 }
 
 .btn-primary:active {
@@ -54,27 +67,34 @@ page {
 
 .section-title {
   font-size: 38rpx;
-  font-weight: 700;
-  color: #1a1a1a;
+  font-weight: 900;
+  color: var(--ink);
   margin-bottom: 28rpx;
   padding-left: 8rpx;
+  text-shadow: 3rpx 3rpx 0 var(--shadow-amber);
 }
 
 .empty-tip {
   text-align: center;
-  padding: 80rpx 0;
-  color: #bbb;
+  padding: 80rpx 24rpx;
+  color: #8A93A3;
   font-size: 28rpx;
+  background: #FFFFFF;
+  border: 3rpx dashed var(--ink);
+  border-radius: 24rpx;
+  box-shadow: 7rpx 7rpx 0 var(--shadow-blue);
 }
 
 .badge {
   display: inline-block;
-  background: #F0EDFF;
-  color: #6C5CE7;
+  background: var(--soft-amber);
+  color: #8B5E00;
   font-size: 22rpx;
   padding: 4rpx 16rpx;
   border-radius: 20rpx;
   margin-left: 12rpx;
+  border: 2rpx solid var(--ink);
+  font-weight: 800;
 }
 
 .label {
@@ -83,4 +103,81 @@ page {
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 16rpx;
+}
+
+/* Pop art layer */
+page {
+  --pop-pink: #FF4FB8;
+  --pop-cyan: #00C2FF;
+  --pop-yellow: #FFE14D;
+  --pop-lime: #7DFF6A;
+}
+
+.card-title,
+.section-title {
+  text-shadow: 3rpx 3rpx 0 var(--pop-yellow), 6rpx 6rpx 0 rgba(0, 194, 255, 0.22);
+}
+
+.btn-primary,
+.empty-action,
+.bottom-btn {
+  background:
+    linear-gradient(135deg, #172033 0%, #172033 58%, var(--pop-pink) 58%, var(--pop-pink) 100%);
+}
+
+.pop-burst {
+  position: absolute;
+  z-index: 2;
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 30rpx 50% 34rpx 50%;
+  background: #FFE14D;
+  border: 4rpx solid #172033;
+  box-shadow: 7rpx 7rpx 0 #FF4FB8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(10deg);
+}
+
+.pop-burst text {
+  font-size: 24rpx;
+  line-height: 1;
+  color: #172033;
+  font-weight: 900;
+}
+
+.campus-chip,
+.poster-stamp {
+  position: absolute;
+  z-index: 2;
+  height: 38rpx;
+  padding: 0 14rpx;
+  display: flex;
+  align-items: center;
+  background: #00C2FF;
+  color: #FFFFFF;
+  border: 3rpx solid #172033;
+  border-radius: 10rpx;
+  box-shadow: 5rpx 5rpx 0 #FFE14D;
+  font-size: 17rpx;
+  font-weight: 900;
+  transform: rotate(-5deg);
+}
+
+.poster-stamp {
+  background: #FF4FB8;
+  color: #FFFFFF;
+  transform: rotate(5deg);
+}
+
+.pop-zigzag {
+  position: absolute;
+  z-index: 0;
+  width: 220rpx;
+  height: 28rpx;
+  background:
+    linear-gradient(135deg, transparent 0 18%, #172033 18% 30%, transparent 30% 48%, #172033 48% 60%, transparent 60% 78%, #172033 78% 90%, transparent 90%);
+  opacity: 0.12;
+  pointer-events: none;
 }

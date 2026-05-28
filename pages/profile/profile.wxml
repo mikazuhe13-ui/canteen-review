@@ -2,6 +2,9 @@
   <view class="top-field">
     <image class="top-bg-image" src="/images/profile-bg.jpg" mode="aspectFill" />
     <view class="top-bg-overlay"></view>
+    <view class="pop-burst hero-burst"><text>ME!</text></view>
+    <view class="campus-chip hero-chip">CAMPUS ID</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="comic-dot dot-a"></view>
     <view class="comic-dot dot-b"></view>
     <view class="page-title-row">
@@ -17,6 +20,9 @@
   </view>
 
   <view class="profile-card" bindtap="goEditProfile">
+    <view class="profile-pop">STUDENT CARD</view>
+    <view class="profile-speed"></view>
+    <view class="profile-burst"><text>HI!</text></view>
     <view class="profile-main">
       <view class="avatar-wrapper">
         <image class="avatar" src="{{user.avatar || '/images/avatar.png'}}" mode="aspectFill" />
@@ -36,6 +42,7 @@
   </view>
 
   <view class="asset-row">
+    <view class="asset-pop">MY POWER</view>
     <view class="asset-item">
       <text class="asset-num">{{user.reviewCount}}</text>
       <text class="asset-label">发布</text>
@@ -58,6 +65,7 @@
   </view>
 
   <view class="ai-card" bindtap="goAI">
+    <view class="ai-pop">BOOM!</view>
     <view class="ai-mark">
       <image class="ai-icon-img" src="/images/icons/profile/ai.svg" mode="aspectFit" />
     </view>
@@ -74,6 +82,7 @@
   </view>
   <view class="tool-grid">
     <view class="tool-card" bindtap="goFeed">
+      <view class="tool-burst"></view>
       <view class="tool-sticker">POST</view>
       <view class="tool-icon tool-blue">
         <image class="tool-icon-img" src="/images/icons/profile/posts.svg" mode="aspectFit" />
@@ -81,6 +90,7 @@
       <text class="tool-title">我的发布</text>
     </view>
     <view class="tool-card" bindtap="goMyReviews">
+      <view class="tool-burst"></view>
       <view class="tool-sticker sticker-green">RATE</view>
       <view class="tool-icon tool-green">
         <image class="tool-icon-img" src="/images/icons/profile/reviews.svg" mode="aspectFit" />
@@ -88,6 +98,7 @@
       <text class="tool-title">我的评价</text>
     </view>
     <view class="tool-card" bindtap="goLostFound">
+      <view class="tool-burst"></view>
       <view class="tool-sticker sticker-amber">HELP</view>
       <view class="tool-icon tool-amber">
         <image class="tool-icon-img" src="/images/icons/profile/lost.svg" mode="aspectFit" />
@@ -95,6 +106,7 @@
       <text class="tool-title">失物记录</text>
     </view>
     <view class="tool-card" bindtap="goCoupons">
+      <view class="tool-burst"></view>
       <view class="tool-sticker sticker-red">SALE</view>
       <view class="tool-icon tool-red">
         <image class="tool-icon-img" src="/images/icons/profile/coupon.svg" mode="aspectFit" />
@@ -153,19 +165,19 @@
       </view>
       <text class="menu-arrow">›</text>
     </view>
-    <view class="menu-item">
-      <view class="menu-icon-wrap icon-green"><image class="menu-icon-img" src="/images/icons/profile/about.svg" mode="aspectFit" /></view>
-      <view class="menu-main">
-        <text class="menu-text">关于我们</text>
-        <text class="menu-desc">校园服务与共创计划</text>
-      </view>
-      <text class="menu-arrow">›</text>
-    </view>
     <view class="menu-item" wx:if="{{user.isAdmin}}" bindtap="goAdmin">
       <view class="menu-icon-wrap icon-dark"><image class="menu-icon-img" src="/images/icons/profile/admin.svg" mode="aspectFit" /></view>
       <view class="menu-main">
         <text class="menu-text">管理后台</text>
         <text class="menu-desc">内容与校园服务管理</text>
+      </view>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item">
+      <view class="menu-icon-wrap icon-green"><image class="menu-icon-img" src="/images/icons/profile/about.svg" mode="aspectFit" /></view>
+      <view class="menu-main">
+        <text class="menu-text">关于我们</text>
+        <text class="menu-desc">校园服务与共创计划</text>
       </view>
       <text class="menu-arrow">›</text>
     </view>

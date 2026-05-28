@@ -1,4 +1,5 @@
 const app = getApp()
+const storage = require('../../services/storageService')
 const userService = require('../../services/userService')
 const { tabBar } = require('../../utils/index.js')
 
@@ -18,11 +19,13 @@ Page({
   },
 
   loadData() {
-    const user = app.globalData.user
+    const cachedUser = storage.getUser()
+    const user = cachedUser || app.globalData.user
+    if (cachedUser) app.globalData.user = Object.assign({}, app.globalData.user, cachedUser)
     const reviews = app.globalData.reviews || []
     let totalLikes = 0
     reviews.forEach(r => { totalLikes += (r.likes ? r.likes.length : 0) })
-    this.setData({ user, totalLikes })
+    this.setData({ user: Object.assign({}, user), totalLikes })
   },
 
   goEditProfile() {

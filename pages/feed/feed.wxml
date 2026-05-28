@@ -3,6 +3,9 @@
   <view class="feed-hero">
     <view class="comic-dot dot-a"></view>
     <view class="comic-dot dot-b"></view>
+    <view class="pop-burst hero-burst"><text>NEW!</text></view>
+    <view class="campus-chip hero-chip">CAMPUS NEWS</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="page-title">
       <text class="page-kicker">校园信息入口</text>
       <text class="page-title-text">校园动态</text>

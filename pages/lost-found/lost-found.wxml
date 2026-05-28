@@ -1,5 +1,8 @@
 <view class="container">
   <view class="hero-header">
+    <view class="pop-burst hero-burst"><text>HELP</text></view>
+    <view class="campus-chip hero-chip">LOST & FOUND</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="hero-content">
       <view class="hero-badge">
         <text class="badge-text">校园互助</text>

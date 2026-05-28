@@ -2,6 +2,9 @@
   <!-- 装饰性渐变头部 -->
   <view class="hero-header">
     <view class="hero-bg"></view>
+    <view class="pop-burst hero-burst"><text>GO!</text></view>
+    <view class="campus-chip hero-chip">CAMPUS MAP</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="hero-decoration">
       <view class="deco-circle deco-1"></view>
       <view class="deco-circle deco-2"></view>

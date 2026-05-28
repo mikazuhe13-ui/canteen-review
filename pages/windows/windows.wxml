@@ -2,6 +2,9 @@
   <!-- 渐变头部 -->
   <view class="hero-header">
     <view class="hero-bg"></view>
+    <view class="pop-burst hero-burst"><text>EAT!</text></view>
+    <view class="campus-chip hero-chip">WINDOW MAP</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="hero-content">
       <view class="hero-badge">
         <text class="badge-icon">🍽️</text>

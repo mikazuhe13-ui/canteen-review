@@ -49,7 +49,7 @@
   color: #fff;
   margin-bottom: 8rpx;
   text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.2);
-  letter-spacing: 2rpx;
+  letter-spacing: 0;
 }
 
 .hero-sub {
@@ -307,4 +307,187 @@
   display: block;
   font-size: 28rpx;
   color: #999;
+}
+
+/* Campus comic upgrade */
+.container {
+  min-height: 100vh;
+  padding: 0 24rpx 190rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(22, 119, 255, 0.06) 0 4rpx, transparent 5rpx) 0 330rpx / 34rpx 34rpx,
+    linear-gradient(180deg, #FFF8E8 0%, #F7F8FA 430rpx),
+    #F7F8FA;
+}
+
+.hero-header {
+  margin: 0 -24rpx 30rpx;
+  min-height: 330rpx;
+  padding: 116rpx 32rpx 42rpx;
+  box-sizing: border-box;
+}
+
+.hero-bg {
+  background:
+    radial-gradient(circle at 82% 18%, rgba(255, 176, 32, 0.30) 0 58rpx, transparent 60rpx),
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.18) 0 4rpx, transparent 5rpx) 0 0 / 38rpx 38rpx,
+    linear-gradient(135deg, #172033 0%, #245477 58%, #22A06B 100%);
+  border-radius: 0 0 34rpx 34rpx;
+  border-bottom: 5rpx solid #172033;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  left: 38rpx;
+  right: 38rpx;
+  bottom: 24rpx;
+  height: 16rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 34rpx 0 rgba(255, 255, 255, 0.13);
+}
+
+.hero-badge {
+  background: #FFF7E8;
+  border: 3rpx solid #172033;
+  box-shadow: 5rpx 5rpx 0 #FFB020;
+  transform: rotate(-3deg);
+}
+
+.badge-text {
+  color: #172033;
+  font-weight: 900;
+}
+
+.hero-title {
+  font-size: 52rpx;
+  line-height: 1.12;
+  color: #FFFFFF;
+  text-shadow: 4rpx 4rpx 0 rgba(23, 32, 51, 0.70);
+  letter-spacing: 0;
+}
+
+.hero-sub {
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.floor-tabs {
+  background: #FFFFFF;
+  border: 3rpx solid #172033;
+  border-radius: 24rpx;
+  box-shadow: 7rpx 7rpx 0 #DCE7F5;
+  padding: 10rpx;
+}
+
+.floor-tab {
+  color: #697386;
+  font-weight: 800;
+}
+
+.floor-tab.active {
+  background: #172033;
+  color: #FFFFFF;
+  border: 2rpx solid #172033;
+  box-shadow: 4rpx 4rpx 0 #FFB020;
+}
+
+.window-card {
+  border: 3rpx solid #172033;
+  border-radius: 24rpx;
+  box-shadow: 8rpx 8rpx 0 #E5ECF5;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(255, 176, 32, 0.12) 0 34rpx, transparent 36rpx),
+    #FFFFFF;
+}
+
+.window-img-wrapper,
+.window-img,
+.window-img-overlay {
+  border-radius: 24rpx;
+}
+
+.window-img-wrapper {
+  border: 3rpx solid #172033;
+  box-shadow: 5rpx 5rpx 0 #FFE4A8;
+}
+
+.window-name {
+  color: #172033;
+  font-weight: 900;
+}
+
+.taste-tag,
+.rating-badge {
+  border: 2rpx solid #172033;
+  background: #FFF7E8;
+  color: #8B5E00;
+  font-weight: 800;
+}
+
+.bar-track {
+  border: 2rpx solid #D8DFEA;
+  height: 14rpx;
+  background: #FFFFFF;
+}
+
+.bar-fill {
+  background: linear-gradient(90deg, #22A06B, #FFB020);
+}
+
+.arrow-circle {
+  background: #172033;
+  border: 3rpx solid #172033;
+  box-shadow: 4rpx 4rpx 0 #FFB020;
+}
+
+.arrow-icon {
+  color: #FFFFFF;
+  font-weight: 900;
+}
+
+/* Pop art layer */
+.hero-bg {
+  background:
+    radial-gradient(circle at 84% 18%, rgba(255, 79, 184, 0.34) 0 54rpx, transparent 56rpx),
+    radial-gradient(circle at 18% 26%, rgba(255, 225, 77, 0.26) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    linear-gradient(135deg, #172033 0%, #245477 58%, #00C2FF 100%);
+}
+
+.hero-title {
+  text-shadow: 4rpx 4rpx 0 #FF4FB8, 7rpx 7rpx 0 rgba(255, 225, 77, 0.38);
+}
+
+.window-card {
+  background:
+    radial-gradient(circle at 18rpx 18rpx, rgba(0, 194, 255, 0.10) 0 4rpx, transparent 5rpx) 0 0 / 30rpx 30rpx,
+    #FFFFFF;
+}
+
+.rating-badge,
+.taste-tag,
+.floor-tab.active,
+.arrow-circle {
+  box-shadow: 4rpx 4rpx 0 #FF4FB8;
+}
+
+.hero-burst {
+  right: 26rpx;
+  bottom: 38rpx;
+}
+
+.hero-chip {
+  right: 110rpx;
+  top: 118rpx;
+}
+
+.hero-zigzag {
+  right: 34rpx;
+  top: 184rpx;
+  transform: rotate(-12deg);
+}
+
+.hero-content {
+  padding-right: 138rpx;
 }

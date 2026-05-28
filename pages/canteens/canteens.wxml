@@ -27,6 +27,9 @@
   <view class="hero">
     <view class="comic-dot dot-a"></view>
     <view class="comic-dot dot-b"></view>
+    <view class="pop-burst hero-burst"><text>WOW!</text></view>
+    <view class="campus-chip hero-chip">CAMPUS FOOD</view>
+    <view class="pop-zigzag hero-zigzag"></view>
     <view class="hero-top">
       <view>
         <text class="greeting">校园干饭时间 · {{greeting}}</text>
@@ -141,8 +144,17 @@
     </view>
   </view>
   <view class="empty-recommend" wx:else>
-    <text class="empty-title">还没有推荐窗口</text>
-    <text class="empty-desc">发布第一条评价后会自动生成推荐</text>
+    <view class="empty-pop">HEY!</view>
+    <view class="empty-flash flash-a"></view>
+    <view class="empty-flash flash-b"></view>
+    <view class="empty-plate">
+      <text class="empty-icon">🍱</text>
+    </view>
+    <view class="empty-main">
+      <text class="empty-title">还没有推荐窗口</text>
+      <text class="empty-desc">发布第一条评价后会自动生成推荐</text>
+    </view>
+    <view class="empty-cta" bindtap="goToFeedback">去评价</view>
   </view>
 
   <view class="section-head">
@@ -158,6 +170,9 @@
         bindtap="goToWindows"
         data-id="{{item.id}}"
       >
+        <view class="canteen-ribbon">NO.{{index + 1}}</view>
+        <view class="canteen-bang">OPEN</view>
+        <view class="speed-lines"></view>
         <view class="canteen-mark canteen-mark-{{index % 3}}">{{item.name[0]}}</view>
         <view class="canteen-info">
           <view class="canteen-title-row">
@@ -166,11 +181,15 @@
           </view>
           <text class="canteen-desc">{{item.desc}}</text>
           <view class="canteen-meta">
-            <text>{{item.floors}} 层</text>
-            <text>{{item.windowCount || 0}} 个窗口</text>
+            <text class="meta-pill">🏫 {{item.floors}} 层</text>
+            <text class="meta-pill meta-hot">🍽 {{item.windowCount || 0}} 个窗口</text>
+            <text class="meta-pill meta-pop">POP!</text>
           </view>
         </view>
-        <text class="canteen-arrow">›</text>
+        <view class="canteen-action">
+          <text class="canteen-action-text">GO</text>
+          <text class="canteen-arrow">›</text>
+        </view>
       </view>
     </view>
   </skeleton>

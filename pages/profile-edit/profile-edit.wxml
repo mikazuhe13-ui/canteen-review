@@ -1,12 +1,26 @@
 <view class="page-wrap">
+  <view class="edit-hero">
+    <view class="hero-dot dot-a"></view>
+    <view class="hero-dot dot-b"></view>
+    <view class="pop-burst hero-burst"><text>EDIT</text></view>
+    <view class="campus-chip hero-chip">PROFILE</view>
+    <view class="pop-zigzag hero-zigzag"></view>
+    <text class="hero-kicker">校园名片</text>
+    <text class="hero-title">编辑个人信息</text>
+    <text class="hero-sub">换上头像和昵称，让同学更快认出你</text>
+  </view>
+
   <!-- 头像 -->
   <view class="section">
-    <view class="avatar-section">
+    <view class="avatar-section" bindtap="chooseAvatarFromAlbum">
       <text class="label">头像</text>
-      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
-        <image class="avatar" src="{{user.avatar || '/images/avatar.png'}}" mode="aspectFill" />
+      <view class="avatar-btn">
+        <image class="avatar" src="{{avatar || '/images/avatar.png'}}" mode="aspectFill" />
         <text class="arrow">›</text>
-      </button>
+      </view>
+    </view>
+    <view class="fallback-row" bindtap="chooseAvatarFromAlbum">
+      <text class="fallback-text">从相册选择头像</text>
     </view>
   </view>
 
@@ -14,7 +28,7 @@
   <view class="section">
     <view class="input-item">
       <text class="label">昵称</text>
-      <input class="input" type="nickname" value="{{user.nickname}}" placeholder="请输入昵称" bindinput="onNicknameInput" />
+      <input class="input" type="nickname" value="{{nickname}}" placeholder="请输入昵称" bindinput="onNicknameInput" />
     </view>
   </view>
 
@@ -22,7 +36,7 @@
   <view class="section">
     <view class="input-item input-item-col">
       <text class="label">个人简介</text>
-      <textarea class="input bio-input" value="{{user.bio}}" placeholder="介绍一下自己吧~" maxlength="100" bindinput="onBioInput" />
+      <textarea class="input bio-input" value="{{bio}}" placeholder="介绍一下自己吧~" maxlength="100" bindinput="onBioInput" />
     </view>
   </view>
 
